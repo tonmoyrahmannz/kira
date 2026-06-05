@@ -1,0 +1,146 @@
+title: Garage IR Remote
+views:
+  - title: Garage IR
+    path: garage-ir
+    icon: mdi:remote-tv
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Projector Remote
+            heading_style: title
+          - type: grid
+            columns: 2
+            cards:
+              - type: button
+                name: Power On
+                icon: mdi:power-plug
+                tap_action:
+                  action: call-service
+                  service: script.projector_power_on
+              - type: button
+                name: Power Off
+                icon: mdi:power
+                tap_action:
+                  action: call-service
+                  service: script.projector_power_off
+          - type: grid
+            columns: 3
+            cards:
+              - type: button
+                name: Source
+                icon: mdi:video-input-hdmi
+                tap_action: { action: call-service, service: script.projector_source }
+              - type: button
+                name: Menu
+                icon: mdi:menu
+                tap_action: { action: call-service, service: script.projector_menu }
+              - type: button
+                name: Mute
+                icon: mdi:volume-mute
+                tap_action: { action: call-service, service: script.projector_mute }
+          - type: grid
+            columns: 3
+            cards:
+              - type: button
+                name: ""
+                icon: mdi:minus
+                show_name: false
+              - type: button
+                name: Up
+                icon: mdi:chevron-up
+                tap_action: { action: call-service, service: script.projector_up }
+              - type: button
+                name: ""
+                icon: mdi:minus
+                show_name: false
+          - type: grid
+            columns: 3
+            cards:
+              - type: button
+                name: Left
+                icon: mdi:chevron-left
+                tap_action: { action: call-service, service: script.projector_left }
+              - type: button
+                name: OK
+                icon: mdi:check-circle-outline
+                tap_action: { action: call-service, service: script.projector_ok }
+              - type: button
+                name: Right
+                icon: mdi:chevron-right
+                tap_action: { action: call-service, service: script.projector_right }
+          - type: grid
+            columns: 3
+            cards:
+              - type: button
+                name: ""
+                icon: mdi:minus
+                show_name: false
+              - type: button
+                name: Down
+                icon: mdi:chevron-down
+                tap_action: { action: call-service, service: script.projector_down }
+              - type: button
+                name: ""
+                icon: mdi:minus
+                show_name: false
+          - type: grid
+            columns: 2
+            cards:
+              - type: button
+                name: Back
+                icon: mdi:arrow-left
+                tap_action: { action: call-service, service: script.projector_back }
+              - type: button
+                name: Exit
+                icon: mdi:exit-to-app
+                tap_action: { action: call-service, service: script.projector_exit }
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Soundbar Remote
+            heading_style: title
+          - type: grid
+            columns: 2
+            cards:
+              - type: button
+                name: Power
+                icon: mdi:speaker
+                tap_action: { action: call-service, service: script.soundbar_power }
+              - type: button
+                name: Bluetooth
+                icon: mdi:bluetooth
+                tap_action: { action: call-service, service: script.soundbar_bluetooth }
+          - type: grid
+            columns: 2
+            cards:
+              - type: button
+                name: Volume +
+                icon: mdi:volume-plus
+                tap_action: { action: call-service, service: script.soundbar_volume_up }
+              - type: button
+                name: Volume -
+                icon: mdi:volume-minus
+                tap_action: { action: call-service, service: script.soundbar_volume_down }
+          - type: grid
+            columns: 4
+            cards:
+              - type: button
+                name: Previous
+                icon: mdi:skip-previous
+                tap_action: { action: call-service, service: script.soundbar_previous }
+              - type: button
+                name: Play
+                icon: mdi:play
+                tap_action: { action: call-service, service: script.soundbar_play }
+              - type: button
+                name: Pause
+                icon: mdi:pause
+                tap_action: { action: call-service, service: script.soundbar_pause }
+              - type: button
+                name: Next
+                icon: mdi:skip-next
+                tap_action: { action: call-service, service: script.soundbar_next }

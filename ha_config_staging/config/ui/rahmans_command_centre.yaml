@@ -1,0 +1,479 @@
+title: Rahman’s Command Centre
+views:
+- title: God’s Eye
+  path: gods-eye
+  icon: mdi:monitor-dashboard
+  panel: true
+  cards:
+  - type: custom:html-card
+    content: "<style>\n  :host { --text:#edf4ff; --muted:#93a6c3; --line-strong:rgba(130,170,230,.24);\
+      \ --line:rgba(130,170,230,.16); --radius-xl:30px; --shadow:0 24px 60px rgba(0,0,0,.45);\
+      \ --cyan:#76e4ff; display:block }\n  *{box-sizing:border-box}\n  .rcc-shell{width:100%;color:var(--text);font-family:Inter,ui-sans-serif,system-ui;padding:20px;border-radius:34px;background:radial-gradient(circle\
+      \ at 18% 24%, rgba(66,120,255,.18), transparent 0 24%),radial-gradient(circle\
+      \ at 82% 78%, rgba(0,194,255,.10), transparent 0 22%),linear-gradient(180deg,#07111a\
+      \ 0%,#09131d 100%);border:1px solid rgba(120,160,220,.10);box-shadow:var(--shadow);overflow:hidden;position:relative}\n\
+      \  .rcc-shell::before{content:\"\";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.018)\
+      \ 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent\
+      \ 1px);background-size:24px 24px;opacity:.28;pointer-events:none}\n  .inner{position:relative;z-index:1}\n\
+      \  .title-row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;padding:4px\
+      \ 2px 14px;border-bottom:1px solid rgba(140,175,230,.12)}\n  .eyebrow{color:var(--cyan);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}\n\
+      \  .title{font-size:30px;font-weight:800;line-height:1;letter-spacing:.02em}\n\
+      \  .subtitle{color:var(--muted);font-size:13px}\n  .timestamp{white-space:nowrap;padding:10px\
+      \ 16px;border-radius:999px;color:#cfe0ff;background:rgba(20,31,46,.72);border:1px\
+      \ solid rgba(120,160,220,.16);font-size:12px;font-weight:600}\n  .grid-top{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px}\n\
+      \  .metric{min-height:130px;border-radius:24px;padding:14px;background:linear-gradient(180deg,\
+      \ rgba(8,14,24,.72) 0%, rgba(10,18,28,.9) 100%);border:1px solid var(--line-strong);display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;color:inherit}\n\
+      \  .metric:hover{border-color:rgba(130,180,250,.45)}\n  .metric-name{font-size:13px;font-weight:800}.metric-big{font-size:26px;font-weight:800;line-height:1.05}.metric-top{display:flex;justify-content:space-between;align-items:flex-start}.metric-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:rgba(102,168,255,.10);border:1px\
+      \ solid rgba(102,168,255,.18);color:#b8d4ff;font-size:16px}.metric-row{font-size:12px;color:var(--muted)}\
+      \ .metric-rows{display:grid;gap:6px;margin-top:8px}.row{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)}\
+      \ .row strong{color:#d8e6ff;font-weight:700}.metric-big.g{color:#22c55e}.metric-big.r{color:#ef4444}\n\
+      \  .grid-main{display:grid;grid-template-columns:1.05fr 1.6fr .95fr;gap:14px;margin-bottom:14px;align-items:stretch}\n\
+      \  .panel{background:linear-gradient(180deg, rgba(17,26,40,.90) 0%, rgba(11,18,29,.92)\
+      \ 100%);border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:inset\
+      \ 0 1px 0 rgba(255,255,255,.03),0 12px 28px rgba(0,0,0,.26);overflow:hidden}\n\
+      \  .panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px\
+      \ 18px 12px;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#dce8fb}\n\
+      \  .panel-body{padding:14px 16px 16px}\n  .service-item{display:grid;grid-template-columns:1fr\
+      \ auto;gap:10px;align-items:center;padding:11px 12px;border-radius:16px;background:rgba(255,255,255,.03);border:1px\
+      \ solid rgba(255,255,255,.05);margin-bottom:10px;text-decoration:none;color:inherit}\n\
+      \  .service-item:hover{border-color:rgba(130,180,250,.45);background:rgba(255,255,255,.05)}\n\
+      \  .service-name{font-size:13.5px;font-weight:700}.service-sub{font-size:11px;color:var(--muted)}\n\
+      \  .badge{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px\
+      \ solid transparent}\n  .ok{color:#baf3cf;background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.18)}.warn{color:#ffe1a8;background:rgba(245,158,11,.10);border-color:rgba(245,158,11,.18)}.crit{color:#ffc3c3;background:rgba(239,68,68,.10);border-color:rgba(239,68,68,.18)}\n\
+      \  .topology{min-height:420px;border-radius:22px;padding:16px;background:radial-gradient(circle\
+      \ at 50% 0%, rgba(88,145,255,.10), transparent 28%),rgba(255,255,255,.02);border:1px\
+      \ solid rgba(255,255,255,.06)}\n  .topology pre{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;color:#dce8fb;white-space:pre-wrap}\n\
+      \  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}\n  .chip{font-size:11px;padding:6px\
+      \ 10px;border-radius:999px;border:1px solid rgba(120,160,220,.26);background:rgba(20,30,45,.72);color:#d3e6ff;text-decoration:none}\n\
+      \  .chip:hover{border-color:rgba(130,180,250,.55)}\n  details{margin-top:10px;border:1px\
+      \ solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)}\n\
+      \  summary{cursor:pointer;list-style:none;padding:10px 12px;font-size:12px;font-weight:700}\n\
+      \  summary::-webkit-details-marker{display:none}\n  .d{padding:0 12px 10px;font-size:11px;color:var(--muted);line-height:1.45}\n\
+      \  .d a{color:#9fd0ff}\n  .alert-box{padding:12px;border-radius:12px;border:1px\
+      \ solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);font-size:12px;color:var(--muted)}\n\
+      \  .actions,.nav{display:grid;gap:10px}.actions{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:10px}.nav{grid-template-columns:repeat(5,minmax(0,1fr))}\n\
+      \  .btn{min-height:54px;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:18px;background:linear-gradient(180deg,\
+      \ rgba(24,37,56,.95) 0%, rgba(14,22,35,.98) 100%);border:1px solid rgba(105,150,220,.16);color:#d7e7ff;font-size:13px;font-weight:800;text-decoration:none}\n\
+      \  .btn:hover{border-color:rgba(130,180,250,.45)}\n  \n  .storage-panel{display:flex;gap:20px;align-items:center;flex-wrap:wrap}\n\
+      \  .storage-donut{width:170px;height:170px;border-radius:50%;background:conic-gradient(var(--ok)\
+      \ calc(var(--nas-used,0)*1%), rgba(255,255,255,0.08) 0);position:relative;margin:0\
+      \ auto}\n  .storage-donut::after{content:' ';position:absolute;inset:22px;border-radius:50%;background:var(--panel);border:1px\
+      \ solid rgba(255,255,255,0.05)}\n  .storage-donut-inner{position:absolute;inset:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;text-align:center}\n\
+      \  .storage-value{font-size:1.4rem;font-weight:700}\n  .storage-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}\n\
+      \  .storage-stats{flex:1;min-width:220px}\n  .legend-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:.9rem}\n\
+      \  .legend-item .dot{width:12px;height:12px;border-radius:50%;display:inline-block}\n\
+      \  .dot-used{background:var(--ok)}\n  .dot-free{background:rgba(255,255,255,0.3)}\n\
+      \  .dot-media{background:#60a5fa}\n  .dot-docs{background:#f472b6}\n  .dot-backups{background:#facc15}\n\
+      \  .dot-archive{background:#a78bfa}\n  @media(max-width:1400px){.grid-main{grid-template-columns:1fr}}\
+      \ @media(max-width:1100px){.grid-top{grid-template-columns:repeat(2,minmax(0,1fr))}.actions{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{grid-template-columns:repeat(3,minmax(0,1fr))}}\
+      \ @media(max-width:760px){.grid-top,.actions,.nav{grid-template-columns:1fr}.title{font-size:22px}}\n\
+      \n@keyframes pulse-glow {\n  0% { box-shadow: 0 0 6px currentColor; }\n  50%\
+      \ { box-shadow: 0 0 22px currentColor; }\n  100% { box-shadow: 0 0 6px currentColor;\
+      \ }\n}\n.pulse-node {\n  animation: pulse-glow 1.8s infinite ease-in-out;\n\
+      }\n\n</style>\n\n<div class=\"rcc-shell\"><div class=\"inner\">\n  <div class=\"\
+      title-row\">\n    <div><div class=\"eyebrow\">Executive Operations View</div><div\
+      \ class=\"title\">RAHMAN'S COMMAND CENTRE</div><div class=\"subtitle\">God’s\
+      \ Eye · readable topology + interactive drill-down</div></div>\n    <div class=\"\
+      timestamp\">\n<style>\n.led { display: inline-block; width: 8px; height: 8px;\
+      \ border-radius: 50%; background: #00ff7f; box-shadow: 0 0 6px #00ff7f; margin-right:\
+      \ 6px; animation: pulse-led 1.5s infinite ease-in-out; vertical-align: middle;\
+      \ }\n@keyframes pulse-led { 0% { opacity: 1; box-shadow: 0 0 8px #00ff7f; }\
+      \ 50% { opacity: 0.5; box-shadow: 0 0 3px #00ff7f; } 100% { opacity: 1; box-shadow:\
+      \ 0 0 8px #00ff7f; } }\n</style>\n<span class=\"led\"></span> live dashboard\n\
+      </div>\n  </div>\n\n  <div class=\"grid-top\">\n    <a class=\"metric\" href=\"\
+      /developer-tools/state?entity_id=binary_sensor.kira_openclaw_running\"><div\
+      \ class=\"metric-top\"><div><div class=\"metric-name\">HA Host</div><div\
+      \ class=\"metric-big g\" id=\"ha-state\">Healthy</div></div><div class=\"metric-icon\"\
+      >⌂</div></div><div class=\"metric-rows\"><div class=\"row\"><span>CPU</span><strong\
+      \ id=\"ha-cpu\">19%</strong></div><div class=\"row\"><span>Uptime</span><strong\
+      \ id=\"ha-uptime-days\">7d</strong></div><div class=\"row\"><span>Memory</span><strong\
+      \ id=\"ha-mem\">84%</strong></div></div></a>\n    <a class=\"metric\" href=\"\
+      /developer-tools/state?entity_id=binary_sensor.nas_online\"><div class=\"metric-top\"\
+      ><div><div class=\"metric-name\">Mac Mini Host</div><div class=\"metric-big\
+      \ g\" id=\"mac-state\">Stable</div></div><div class=\"metric-icon\">◫</div></div><div\
+      \ class=\"metric-rows\"><div class=\"row\"><span>CPU</span><strong id=\"mac-cpu\"\
+      >65%</strong></div><div class=\"row\"><span>Disk</span><strong id=\"mac-disk\"\
+      >13%</strong></div><div class=\"row\"><span>RAM</span><strong id=\"mac-ram\"\
+      >43%</strong></div></div></a>\n    <a class=\"metric\" href=\"/developer-tools/state?entity_id=binary_sensor.omarchy_online\"\
+      ><div class=\"metric-top\"><div><div class=\"metric-name\">Omarchy Node</div><div\
+      \ class=\"metric-big g\" id=\"om-state\">Connected</div></div><div class=\"\
+      metric-icon\">⌘</div></div><div class=\"metric-rows\"><div class=\"row\"><span>CPU</span><strong\
+      \ id=\"om-cpu\">16%</strong></div><div class=\"row\"><span>Disk</span><strong\
+      \ id=\"om-disk\">41%</strong></div><div class=\"row\"><span>RAM</span><strong\
+      \ id=\"om-ram\">53%</strong></div></div></a>\n    <a class=\"metric\" href=\"\
+      /developer-tools/states\"><div class=\"metric-top\"><div><div class=\"metric-name\"\
+      >RT-AX86U Gateway</div><div class=\"metric-big g\" id=\"net-state\">Online</div></div><div\
+      \ class=\"metric-icon\">◎</div></div><div class=\"metric-rows\"><div class=\"\
+      row\"><span>WAN</span><strong id=\"net-wan\">Connected</strong></div><div class=\"\
+      row\"><span>External IP</span><strong id=\"net-ip\">100.78.195.209</strong></div><div\
+      \ class=\"row\"><span>Internet Speed</span><strong id=\"net-clients\">↓ 0.6\
+      \ Mbps / ↑ 0.0 Mbps</strong></div></div></a>\n  </div>\n\n  <div class=\"grid-main\"\
+      >\n    <div class=\"panel\"><div class=\"panel-head\">Tailscale Device Health</div><div\
+      \ class=\"panel-body\">\n      <div id=\"ts-device-list\"><a class=\"service-item\"\
+      \ href=\"/developer-tools/state?entity_id=sensor.tailscale_online_device_names\"\
+      ><span><div class=\"service-name\">Tonmoy's iPhone</div><div class=\"service-sub\"\
+      >online</div></span><span class=\"badge ok\">0m ago</span></a><a class=\"service-item\"\
+      \ href=\"/developer-tools/state?entity_id=sensor.tailscale_online_device_names\"\
+      ><span><div class=\"service-name\">Tonmoy’s Mac mini</div><div class=\"service-sub\"\
+      >online</div></span><span class=\"badge ok\">0m ago</span></a><a class=\"service-item\"\
+      \ href=\"/developer-tools/state?entity_id=sensor.tailscale_online_device_names\"\
+      ><span><div class=\"service-name\">TonmoysLaptop</div><div class=\"service-sub\"\
+      >online</div></span><span class=\"badge ok\">0m ago</span></a><a class=\"service-item\"\
+      \ href=\"/developer-tools/state?entity_id=sensor.tailscale_offline_device_names\"\
+      ><span><div class=\"service-name\">Esha's iPhone</div><div class=\"service-sub\"\
+      >offline</div></span><span class=\"badge crit\">OFFLINE</span></a></div>\n \
+      \     <div class=\"service-item\"><span><div class=\"service-name\">API expires\
+      \ in</div><div class=\"service-sub\" id=\"ts-api-expiry-sub\">89 days remaining</div></span><span\
+      \ class=\"badge ok\" id=\"ts-api-expiry-days\">89d</span></div>\n    </div></div>\n\
+      \n    <div class=\"panel\"><div class=\"panel-head\">System Topology</div><div\
+      \ class=\"panel-body\"><style>\n  .rcc-wrapper {\n    background: linear-gradient(180deg,\
+      \ rgba(16, 20, 32, 0.95) 0%, rgba(8, 10, 15, 1) 100%);\n    padding: 30px; border-radius:\
+      \ 28px; border: 1px solid rgba(255, 255, 255, 0.1);\n    box-shadow: 0 10px\
+      \ 40px rgba(0,0,0,0.8); font-family: 'Segoe UI', sans-serif; color: #fff;\n\
+      \  }\n  .node {\n    display: inline-flex; align-items: center; padding: 10px\
+      \ 18px;\n    background: rgba(255, 255, 255, 0.03); border-radius: 12px; font-size:\
+      \ 13px;\n    backdrop-filter: blur(5px); border: 1px solid #444;\n  }\n  .pipe-v\
+      \ { width: 2px; height: 25px; margin: 0 auto; background: var(--net-color);\
+      \ }\n  .pipe-h-branch {\n    display: flex; justify-content: space-between;\
+      \ margin: 0 40px;\n    padding-top: 20px; border-top: 2px solid var(--net-color);\n\
+      \  }\n  .sub-tree {\n    margin-top: 10px; padding-left: 15px; font-size: 11px;\n\
+      \    color: #888; line-height: 1.8; text-align: left;\n  }\n</style>\n\n<div\
+      \ class=\"rcc-wrapper\">\n  <div style=\"text-align: center; color: #666; font-size:\
+      \ 11px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px;\"\
+      >\n    SYSTEM TOPOLOGY\n  </div>\n\n  <div style=\"display: flex; flex-direction:\
+      \ column; align-items: center;\">\n    <div class=\"node {{ 'pulse-node' if\
+      \ not is_state('sensor.internet_status','online') else '' }}\" style=\"border-color:\
+      \ var(--net-color); color: var(--net-color);\">\n      <span style=\"color:\
+      \ var(--net-color); margin-right: 8px;\">☁️</span> INTERNET\n    </div>\n  \
+      \  <div class=\"pipe-v\"></div>\n    <div class=\"node\" style=\"border-color:\
+      \ var(--net-color);\">\n      <span style=\"color: var(--net-color); margin-right:\
+      \ 8px;\">\U0001F6E1️</span> GATEWAY\n    </div>\n  </div>\n\n  <div class=\"\
+      pipe-v\" style=\"height: 30px;\"></div>\n  \n  <div class=\"pipe-h-branch\"\
+      >\n    <div style=\"display: flex; flex-direction: column; align-items: center;\
+      \ flex: 1;\">\n      <div class=\"node {{ 'pulse-node' if not (is_state('binary_sensor.nas_online','on')\
+      \ or states('sensor.macmini_cpu_usage') not in ['unknown','unavailable']) else\
+      \ '' }}\" style=\"border-color: var(--mac-color); color: var(--mac-color);\"\
+      >\n        <span style=\"color: var(--mac-color); margin-right: 8px;\">\U0001F5A5\
+      ️</span> MAC MINI\n      </div>\n      <div class=\"sub-tree\">\n        <div style=\"color: var(--plex-color);\">├─ PLEX</div>\n        <div style=\"color: var(--mac-color);\">├─ NAS / SMB SHARES</div>\n        <div style=\"color: var(--mac-color);\">└─ TAILSCALE SUBNET ROUTER</div>\n      </div>\n      </div>\n\n    <div style=\"display: flex; flex-direction: column; align-items: center; flex: 1;\">\n      <div class=\"node {{ 'pulse-node' if states('sensor.system_monitor_processor_use') in ['unknown','unavailable'] else '' }}\" style=\"border-color: var(--ha-appliance-color); color: var(--ha-appliance-color);\"\n      >\n        <span style=\"color: var(--ha-appliance-color); margin-right: 8px;\">🏠</span> WYSE 5070\n      </div>\n      <div class=\"sub-tree\">\n        <div style=\"color: var(--ha-appliance-color);\">└─ HAOS BARE METAL (HA CORE)</div>\n        <div style=\"color: var(--tuya-color);\">   ├─ TUYA PLATFORM</div>\n        <div style=\"color: var(--tuya-color);\">   │  ├─ TUYA CLOUD</div>\n        <div style=\"color: var(--tuya-color);\">   │  ├─ TUYA ZIGBEE GATEWAY</div>\n        <div style=\"color: var(--tuya-color);\">   │  └─ LOCALTUYA LAN CONTROL</div>\n        <div style=\"color: var(--hvac-color);\">   ├─ GREE HVAC</div>\n        <div style=\"color: var(--neo-color);\">   └─ NEO BLINDS</div>\n      </div>\n      </div>\n\n    <div style=\"display: flex; flex-direction: column; align-items: center; flex: 1;\">\n      <div class=\"node {{ 'pulse-node' if not is_state('binary_sensor.omarchy_online','on') else '' }}\" style=\"border-color: var(--omarchy-color); color: var(--omarchy-color);\"\n      >\n        <span style=\"color: var(--omarchy-color); margin-right: 8px;\">💻</span> OMARCHY\n      </div>\n      <div class=\"sub-tree\">\n        <div style=\"color: var(--omarchy-color);\">├─ OPENCLAW / KIRA</div>\n        <div style=\"color: var(--omarchy-color);\">└─ AUTOMATION TOOLING</div>\n      </div>\n      </div>\n  </div>\n</div>\n</div></div>\n\n    \n    <div class=\"panel\"\
+      ><div class=\"panel-head\">NAS Storage</div><div class=\"panel-body storage-panel\"\
+      >\n      <div class=\"storage-donut\" id=\"nas-donut\" style=\"--nas-used:2.0;\"\
+      >\n        <div class=\"storage-donut-inner\">\n          <div class=\"storage-value\"\
+      \ id=\"nas-used-text\">2%</div>\n          <div class=\"storage-label\">Used</div>\n\
+      \        </div>\n      </div>\n      <div class=\"storage-stats\">\n       \
+      \ <div class=\"legend-item\"><span class=\"dot dot-used\"></span><div>Used <strong\
+      \ id=\"nas-used-percent\">2%</strong></div></div>\n        <div class=\"legend-item\"\
+      ><span class=\"dot dot-free\"></span><div>Free <strong id=\"nas-free-percent\"\
+      >98%</strong></div></div>\n        <div class=\"legend-item\"><span class=\"\
+      dot dot-media\"></span><div>Media <strong id=\"nas-media-percent\">80%</strong></div></div>\n\
+      \        <div class=\"legend-item\"><span class=\"dot dot-docs\"></span><div>Documents\
+      \ <strong id=\"nas-docs-percent\">0%</strong></div></div>\n        <div class=\"\
+      legend-item\"><span class=\"dot dot-backups\"></span><div>Backups <strong id=\"\
+      nas-backups-percent\">2%</strong></div></div>\n        <div class=\"legend-item\"\
+      ><span class=\"dot dot-archive\"></span><div>Archive <strong id=\"nas-archive-percent\"\
+      >0%</strong></div></div>\n      </div>\n    </div></div>\n\n  </div>\n\n  <div\
+      \ class=\"nav\">\n    <a class=\"btn\" href=\"/rahman-command-centre/gods-eye\"\
+      >God’s Eye</a>\n    <a class=\"btn\" href=\"/rahman-command-centre/system\"\
+      >System View</a>\n    <a class=\"btn\" href=\"/rahman-command-centre/service\"\
+      >Service View</a>\n    <a class=\"btn\" href=\"/rahman-command-centre/environment\"\
+      >Environment</a>\n    <a class=\"btn\" href=\"/developer-tools/yaml\">Reload\
+      \ YAML</a>\n  </div>\n</div></div>\n\n<script>\n(function(){\n  function findHass(node){\n\
+      \    if(!node) return null;\n    if(node.hass) return node.hass;\n    if(node.shadowRoot){\
+      \ for(const k of node.shadowRoot.children){ const h=findHass(k); if(h) return\
+      \ h; } }\n    if(node.children){ for(const k of node.children){ const h=findHass(k);\
+      \ if(h) return h; } }\n    return null;\n  }\n  function getHass(){ return findHass(document.querySelector('home-assistant'))\
+      \ || findHass(document.body); }\n  function s(h,e,d='--'){ return h?.states?.[e]?.state\
+      \ ?? d; }\n  function pct(v){ const n=Number(v); return Number.isFinite(n) ?\
+      \ `${Math.round(n)}%` : '--'; }\n  function set(id,val){ const el=document.getElementById(id);\
+      \ if(el) el.textContent=val; }\n  function setBadge(id,val,mode){ const el=document.getElementById(id);\
+      \ if(!el) return; el.textContent=val; el.classList.remove('ok','warn','crit');\
+      \ el.classList.add(mode||'ok'); }\n  function minsAgo(ts){ const t=Date.parse(ts||'');\
+      \ if(!Number.isFinite(t)) return null; return Math.max(0, Math.floor((Date.now()-t)/60000));\
+      \ }\n  function mapNameByIp(addr, hostname){ if((addr||'').endsWith('.69'))\
+      \ return \"Tonmoy's iPhone\"; if((addr||'').endsWith('.29')) return \"Esha's\
+      \ iPhone\"; return hostname || 'Unknown device'; }\n\n  function renderTailnet(h){\n\
+      \    const list=document.getElementById('ts-device-list');\n    if(!list) return;\n\
+      \n    const raw=h.states?.['sensor.tailscale_tailnet_devices_raw'];\n    const\
+      \ devices=raw?.attributes?.devices||[];\n    const onlineNamesState=s(h,'sensor.tailscale_online_device_names','none');\n\
+      \    const offlineNamesState=s(h,'sensor.tailscale_offline_device_names','none');\n\
+      \n    const minsMap={};\n    devices.forEach(d=>{\n      const addr=(d.addresses&&d.addresses[0])?d.addresses[0]:'';\n\
+      \      const name=mapNameByIp(addr,d.hostname);\n      const m=minsAgo(d.lastSeen);\n\
+      \      minsMap[name]=m;\n    });\n\n    let rows=[];\n    if(onlineNamesState\
+      \ && !['none','unknown','unavailable',''].includes(onlineNamesState)){\n   \
+      \   onlineNamesState.split(',').map(x=>x.trim()).filter(Boolean).forEach(name=>{\n\
+      \        const m=minsMap[name];\n        const badge=(typeof m==='number')?`${m}m\
+      \ ago`:'--';\n        rows.push(`<a class=\"service-item\" href=\"/developer-tools/state?entity_id=sensor.tailscale_online_device_names\"\
+      ><span><div class=\"service-name\">${name}</div><div class=\"service-sub\">online</div></span><span\
+      \ class=\"badge ok\">${badge}</span></a>`);\n      });\n    }\n\n    if(offlineNamesState\
+      \ && !['none','unknown','unavailable',''].includes(offlineNamesState)){\n  \
+      \    offlineNamesState.split(',').map(x=>x.trim()).filter(Boolean).forEach(name=>{\n\
+      \        rows.push(`<a class=\"service-item\" href=\"/developer-tools/state?entity_id=sensor.tailscale_offline_device_names\"\
+      ><span><div class=\"service-name\">${name}</div><div class=\"service-sub\">offline</div></span><span\
+      \ class=\"badge crit\">OFFLINE</span></a>`);\n      });\n    }\n\n    if(rows.length===0){\n\
+      \      rows=[`<div class=\"service-item\"><span><div class=\"service-name\"\
+      >No tailnet devices found</div><div class=\"service-sub\">online/offline sensors\
+      \ unavailable</div></span><span class=\"badge warn\">--</span></div>`];\n  \
+      \  }\n\n    list.innerHTML = rows.join('');\n  }\n\n  function refresh(){\n\
+      \    const h=getHass(); if(!h) return;\n\n    set('ha-state', s(h,'binary_sensor.kira_openclaw_running')==='on'\
+      \ ? 'Healthy' : 'Degraded');\n    set('ha-cpu', pct(s(h,'sensor.system_monitor_processor_use')));\n\
+      \    \n    const boot = s(h,'sensor.system_monitor_last_boot','--');\n    let\
+      \ up='--';\n    const bt=Date.parse(boot);\n    if(Number.isFinite(bt)){\n \
+      \     const days=Math.floor((Date.now()-bt)/86400000);\n      up = `${days}d`;\n\
+      \    }\n    set('ha-uptime-days', up);\n\n    set('ha-mem', pct(s(h,'sensor.system_monitor_memory_use_percent')));\n\
+      \n    const macOnline=(s(h,'binary_sensor.nas_online')==='on') || !['unknown','unavailable','--'].includes(s(h,'sensor.macmini_cpu_usage','--'));\n\
+      \    set('mac-state', macOnline ? 'Online' : 'Offline');\n    set('mac-cpu',\
+      \ pct(s(h,'sensor.macmini_cpu_usage'))); set('mac-disk', pct(s(h,'sensor.macmini_storage_usage')));\
+      \ set('mac-ram', pct(s(h,'sensor.macmini_memory_usage')));\n\n    set('om-state',\
+      \ s(h,'binary_sensor.omarchy_online')==='on' ? 'Connected' : 'Disconnected');\n\
+      \    set('om-cpu', pct(s(h,'sensor.omarchy_cpu_usage'))); set('om-disk', pct(s(h,'sensor.omarchy_disk_usage')));\
+      \ set('om-ram', pct(s(h,'sensor.omarchy_memory_usage')));\n\n    const wan=s(h,'binary_sensor.rt_ax86u_9f68_wan_status','off');\\\
+      n    set('net-state', wan==='on' ? 'Online' : 'Offline');\\n    set('net-wan',\
+      \ wan==='on' ? 'Connected' : 'Disconnected');\\n    set('net-ip', s(h,'sensor.rt_ax86u_9f68_external_ip','--'));\\\
+      n    const down=Number(s(h,'sensor.rt_ax86u_9f68_download_speed','0'))/1024;\n\
+      \    const up=Number(s(h,'sensor.rt_ax86u_9f68_upload_speed','0'))/1024;\\n\
+      \    const band=(Number.isFinite(down)&&Number.isFinite(up)) ? `↓ ${down.toFixed(1)}\
+      \ Mbps / ↑ ${up.toFixed(1)} Mbps` : '--';\n    set('net-clients', band);\n\n\
+      \    \n    const used = Number(s(h,'sensor.nas_total_usage','NaN'));\n    const\
+      \ media = Number(s(h,'sensor.nas_media_usage_percent','NaN'));\n    const docs\
+      \ = Number(s(h,'sensor.nas_documents_usage_percent','NaN'));\n    const backups\
+      \ = Number(s(h,'sensor.nas_backups_usage_percent','NaN'));\n    const archive\
+      \ = Number(s(h,'sensor.nas_archive_usage_percent','NaN'));\n    const free =\
+      \ Number.isFinite(used) ? Math.max(0, 100 - used) : NaN;\n    if(Number.isFinite(used)){\n\
+      \      document.getElementById('nas-donut')?.style.setProperty('--nas-used',\
+      \ used);\n      set('nas-used-text', `${Math.round(used)}%`);\n      set('nas-used-percent',\
+      \ `${Math.round(used)}%`);\n      set('nas-free-percent', `${Math.round(free)}%`);\n\
+      \    }\n    set('nas-media-percent', Number.isFinite(media)?`${Math.round(media)}%`:'--');\n\
+      \    set('nas-docs-percent', Number.isFinite(docs)?`${Math.round(docs)}%`:'--');\n\
+      \    set('nas-backups-percent', Number.isFinite(backups)?`${Math.round(backups)}%`:'--');\n\
+      \    set('nas-archive-percent', Number.isFinite(archive)?`${Math.round(archive)}%`:'--');\n\
+      \    renderTailnet(h);\n\n    const expiry=new Date('2026-06-14T00:00:00+13:00').getTime();\n\
+      \    const days=Math.max(0,Math.ceil((expiry-Date.now())/86400000));\n    set('ts-api-expiry-sub',\
+      \ `${days} day${days===1?'':'s'} remaining`);\n    setBadge('ts-api-expiry-days',\
+      \ `${days}d`, days<=14?'crit':(days<=30?'warn':'ok'));\n  }\n  refresh(); setInterval(refresh,15000);\n\
+      })();\n</script>"
+    card_mod:
+      style: "ha-card {\n  --net-color: {{ '#00ff7f' if is_state('sensor.internet_status',\
+        \ 'online') else '#ff4444' }};\n  --mac-color: {{ '#00ff7f' if is_state('binary_sensor.nas_online',\
+        \ 'on') or states('sensor.macmini_cpu_usage') not in ['unknown', 'unavailable']\
+        \ else '#ff4444' }};\n  --hvac-color: {{ '#00ff7f' if states('climate.ac_master')\
+        \ not in ['unknown', 'unavailable'] else '#ff4444' }};\n  --plex-color: {{\
+        \ '#00ff7f' if is_state('binary_sensor.plex_service_online', 'on') else '#ff4444'\
+        \ }};\n  --omarchy-color: {{ '#00ff7f' if is_state('binary_sensor.omarchy_online',\
+        \ 'on') else '#ff4444' }};\n  --tuya-color: {{ '#00ff7f' if ((integration_entities('tuya')\
+        \ | count > 0) or (integration_entities('localtuya') | count > 0)) else '#ff4444'\
+        \ }};\n  --neo-color: {{ '#00ff7f' if (integration_entities('neo_smart_blinds')\
+        \ | count > 0 or states('cover.study_blind') not in ['unknown','unavailable'])\
+        \ else '#ff4444' }};\n  --ha-appliance-color: {{ '#00ff7f' if states('sensor.system_monitor_processor_use')\
+        \ not in ['unknown', 'unavailable'] else '#ff4444' }};\n  --platform-color: {{ '#00ff7f' if (states('climate.ac_master')\
+        \ not in ['unknown','unavailable'] and (integration_entities('tuya') | count\
+        \ > 0) and ((integration_entities('neo_smart_blinds') | count > 0) or states('cover.study_blind')\
+        \ not in ['unknown','unavailable'])) else '#ff4444' }};\n}\n@keyframes pulse-glow\
+        \ {\n  0% { box-shadow: 0 0 6px currentColor; }\n  50% { box-shadow: 0 0 22px\
+        \ currentColor; }\n  100% { box-shadow: 0 0 6px currentColor; }\n}\n.pulse-node\
+        \ { animation: pulse-glow 1.8s infinite ease-in-out; }\n"
+- title: System
+  path: system
+  icon: mdi:server
+  type: masonry
+  cards:
+  - type: grid
+    columns: 4
+    square: false
+    cards:
+    - type: custom:button-card
+      entity: sensor.system_monitor_processor_use
+      name: HA CPU
+      icon: mdi:chip
+      card_mod:
+        style: ha-card{padding:12px;border-radius:14px;border:1px solid var(--divider-color);}
+    - type: custom:button-card
+      entity: sensor.system_monitor_memory_use_percent
+      name: HA Memory
+      icon: mdi:memory
+      card_mod:
+        style: ha-card{padding:12px;border-radius:14px;border:1px solid var(--divider-color);}
+    - type: custom:button-card
+      entity: sensor.macmini_cpu_usage
+      name: Mac Mini CPU
+      icon: mdi:desktop-classic
+      card_mod:
+        style: ha-card{padding:12px;border-radius:14px;border:1px solid var(--divider-color);}
+    - type: custom:button-card
+      entity: sensor.omarchy_cpu_usage
+      name: Omarchy CPU
+      icon: mdi:laptop
+      card_mod:
+        style: ha-card{padding:12px;border-radius:14px;border:1px solid var(--divider-color);}
+  - type: custom:expander-card
+    title: Home Assistant Host Telemetry
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    cards:
+    - type: entities
+      entities:
+      - sensor.system_monitor_processor_use
+      - sensor.system_monitor_memory_use_percent
+      - sensor.system_monitor_disk_use_percent
+      - sensor.system_monitor_load_1m
+      - sensor.system_monitor_last_boot
+  - type: custom:expander-card
+    title: Mac Mini / NAS Telemetry
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    cards:
+    - type: entities
+      entities:
+      - sensor.macmini_cpu_usage
+      - sensor.macmini_memory_usage
+      - sensor.macmini_storage_usage
+      - sensor.nas_total_usage
+      - sensor.nas_media_usage_percent
+      - sensor.nas_documents_usage_percent
+      - sensor.nas_backups_usage_percent
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: Warnings / stale sensors
+      show_header_toggle: false
+      card_mod:
+        style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    filter:
+      include:
+      - entity_id: sensor.mqtt_telemetry_freshness
+        state: stale
+      - entity_id: sensor.mqtt_telemetry_freshness
+        state: offline
+      - entity_id: sensor.system_monitor_disk_use_percent
+        above: 85
+      - entity_id: sensor.nas_total_usage
+        above: 85
+      - entity_id: sensor.macmini_storage_usage
+        above: 85
+      - entity_id: sensor.omarchy_disk_usage
+        above: 85
+    show_empty: true
+    empty:
+      type: markdown
+      content: ✅ No warnings or stale telemetry
+- title: Service
+  path: service
+  icon: mdi:lan-connect
+  type: masonry
+  cards:
+  - type: grid
+    columns: 4
+    square: false
+    cards:
+    - type: custom:mushroom-template-card
+      entity: binary_sensor.kira_openclaw_running
+      primary: OpenClaw
+      secondary: '{{ ''Running'' if is_state(''binary_sensor.kira_openclaw_running'',''on'')
+        else ''Down'' }}'
+      icon: mdi:robot-happy-outline
+      icon_color: '{{ ''green'' if is_state(''binary_sensor.kira_openclaw_running'',''on'')
+        else ''red'' }}'
+      card_mod:
+        style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    - type: custom:mushroom-template-card
+      entity: binary_sensor.plex_service_online
+      primary: Plex
+      secondary: '{{ ''Online'' if is_state(''binary_sensor.plex_service_online'',''on'')
+        else ''Offline'' }}'
+      icon: mdi:plex
+      icon_color: '{{ ''green'' if is_state(''binary_sensor.plex_service_online'',''on'')
+        else ''red'' }}'
+      card_mod:
+        style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    - type: custom:mushroom-template-card
+      entity: binary_sensor.tuya_integration_connected
+      primary: Tuya
+      secondary: '{{ ''Connected'' if is_state(''binary_sensor.tuya_integration_connected'',''on'')
+        else ''Disconnected'' }}'
+      icon: mdi:cloud
+      icon_color: '{% set s = states(''sensor.tuya_service_status'') %} {% if s ==
+        ''online'' %}green{% elif s == ''warning'' %}orange{% else %}red{% endif %}'
+      card_mod:
+        style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    - type: custom:button-card
+      entity: binary_sensor.tailscale_service_online
+      name: Remote Access
+      icon: mdi:cloud-lock
+      card_mod:
+        style: ha-card{padding:12px;border-radius:14px;border:1px solid var(--divider-color);}
+  - type: custom:expander-card
+    title: Tuya Drill-down
+    clear: true
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    cards:
+    - type: entities
+      entities:
+      - binary_sensor.tuya_integration_connected
+      - binary_sensor.tuya_gateway_reachable
+      - sensor.tuya_device_count
+      - sensor.tuya_unavailable_device_count
+      - sensor.tuya_last_update
+  - type: custom:expander-card
+    title: Plex Drill-down
+    clear: true
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    cards:
+    - type: custom:plex-meets-homeassistant
+      title: Plex
+      entity: sensor.plex_service_status
+      protocol: http
+      ip: 192.168.50.208
+      port: '32400'
+  - type: custom:upcoming-media-card
+    title: Upcoming Media
+    entity: sensor.plex_service_status
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+  - type: custom:expander-card
+    title: OpenClaw Drill-down
+    clear: true
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    cards:
+    - type: entities
+      entities:
+      - binary_sensor.openclaw_service_online
+      - sensor.kira_openclaw_pid
+      - sensor.kira_openclaw_memory_mb
+      - sensor.kira_last_heartbeat
+  - type: custom:expander-card
+    title: Remote Access Drill-down
+    clear: true
+    card_mod:
+      style: ha-card{border-radius:14px;border:1px solid var(--divider-color);}
+    cards:
+    - type: entities
+      entities:
+      - binary_sensor.tailscale_service_online
+      - sensor.internet_status
+- title: Environment
+  path: environment
+  icon: mdi:home-thermometer
+  type: masonry
+  cards:
+  - type: custom:mushroom-climate-card
+    entity: climate.ac_master
+    layout: horizontal
+    hvac_modes:
+    - 'off'
+    - cool
+    - heat
+    - fan_only
+    - dry
+    - auto
+  - type: custom:bubble-card
+    card_type: button
+    button_type: slider
+    entity: cover.study_blind
+    name: Study Blind
+    icon: mdi:blinds
+  - type: entities
+    title: Environment Controls
+    entities:
+    - climate.ac_master
+    - cover.study_blind

@@ -1,0 +1,192 @@
+{
+  "calendar": {
+    "error": "Command '['/usr/bin/osascript', '-e', '\\nset nowDate to current date\\nset endDate to nowDate + (24 * hours)\\nset outputText to \"\"\\ntell application \"Calendar\"\\n    launch\\n    repeat with c in calendars\\n        try\\n            set matchingEvents to every event of c whose start date is greater than or equal to nowDate and start date is less than or equal to endDate\\n            repeat with e in matchingEvents\\n                set eventLine to (summary of e) & \" | \" & ((start date of e) as string) & \" | \" & ((end date of e) as string) & \" | \" & (name of c)\\n                set outputText to outputText & eventLine & linefeed\\n            end repeat\\n        end try\\n    end repeat\\nend tell\\nreturn outputText\\n']' timed out after 8 seconds",
+    "events": [],
+    "ok": false
+  },
+  "collected_at": "2026-05-17T03:13:02+12:00",
+  "home_assistant": {
+    "base_url": "http://192.168.50.166:8123",
+    "entities": {
+      "airbnb": {
+        "attributes": {
+          "all_day": true,
+          "description": "",
+          "end_time": "2026-06-05 00:00:00",
+          "friendly_name": "Airbnb",
+          "location": "",
+          "message": "Airbnb (Not available)",
+          "start_time": "2026-06-03 00:00:00"
+        },
+        "entity_id": "calendar.airbnb",
+        "last_changed": "2026-05-16T14:01:57.990353+00:00",
+        "state": "off"
+      },
+      "booking_com": {
+        "attributes": {
+          "all_day": true,
+          "description": "",
+          "end_time": "2026-06-03 00:00:00",
+          "friendly_name": "Booking.com",
+          "location": "",
+          "message": "CLOSED - Not available",
+          "start_time": "2026-05-17 00:00:00"
+        },
+        "entity_id": "calendar.booking_com",
+        "last_changed": "2026-05-16T14:01:57.712000+00:00",
+        "state": "on"
+      },
+      "garage_temperature": {
+        "attributes": {
+          "device_class": "temperature",
+          "friendly_name": "Garage sensor Temperature",
+          "state_class": "measurement",
+          "unit_of_measurement": "\u00b0C"
+        },
+        "entity_id": "sensor.garage_sensor_temperature",
+        "last_changed": "2026-05-16T15:05:36.865627+00:00",
+        "state": "17.2"
+      },
+      "guest_apartment_today": {
+        "attributes": {
+          "checkins_today": 0,
+          "checkouts_today": 0,
+          "cleaning_required": false,
+          "friendly_name": "Guest Apartment \u2013 Today",
+          "icon": "mdi:account-key",
+          "prep_required": false
+        },
+        "entity_id": "sensor.guest_apartment_today",
+        "last_changed": "2026-05-16T14:01:56.169394+00:00",
+        "state": "No Guests Today"
+      },
+      "guest_bedroom_humidity": {
+        "attributes": {
+          "device_class": "humidity",
+          "friendly_name": "Guest Bedroom Sensor Humidity",
+          "state_class": "measurement",
+          "unit_of_measurement": "%"
+        },
+        "entity_id": "sensor.guest_sensor_humidity",
+        "last_changed": "2026-05-16T15:04:28.120152+00:00",
+        "state": "60.0"
+      },
+      "guest_bedroom_temperature": {
+        "attributes": {
+          "device_class": "temperature",
+          "friendly_name": "Guest Bedroom Sensor Temperature",
+          "state_class": "measurement",
+          "unit_of_measurement": "\u00b0C"
+        },
+        "entity_id": "sensor.guest_sensor_temperature",
+        "last_changed": "2026-05-16T14:34:29.013304+00:00",
+        "state": "18.1"
+      },
+      "living_room_humidity": {
+        "attributes": {
+          "device_class": "humidity",
+          "friendly_name": "Living room sensor Humidity",
+          "state_class": "measurement",
+          "unit_of_measurement": "%"
+        },
+        "entity_id": "sensor.living_room_sensor_humidity",
+        "last_changed": "2026-05-16T14:02:04.670309+00:00",
+        "state": "51.0"
+      },
+      "living_room_temperature": {
+        "attributes": {
+          "device_class": "temperature",
+          "friendly_name": "Living room sensor Temperature",
+          "state_class": "measurement",
+          "unit_of_measurement": "\u00b0C"
+        },
+        "entity_id": "sensor.living_room_sensor_temperature",
+        "last_changed": "2026-05-16T14:37:42.123415+00:00",
+        "state": "19.4"
+      },
+      "master_bedroom_humidity": {
+        "attributes": {
+          "device_class": "humidity",
+          "friendly_name": "Master Bedroom Sensor Humidity",
+          "state_class": "measurement",
+          "unit_of_measurement": "%"
+        },
+        "entity_id": "sensor.master_bedroom_humidity",
+        "last_changed": "2026-05-16T14:03:02.471325+00:00",
+        "state": "56.0"
+      },
+      "master_bedroom_temperature": {
+        "attributes": {
+          "device_class": "temperature",
+          "friendly_name": "Master Bedroom Sensor Temperature",
+          "state_class": "measurement",
+          "unit_of_measurement": "\u00b0C"
+        },
+        "entity_id": "sensor.master_bedroom_temperature",
+        "last_changed": "2026-05-16T15:03:01.658713+00:00",
+        "state": "18.6"
+      },
+      "study_humidity": {
+        "attributes": {
+          "device_class": "humidity",
+          "friendly_name": "Study sensor Humidity",
+          "state_class": "measurement",
+          "unit_of_measurement": "%"
+        },
+        "entity_id": "sensor.study_sensor_humidity",
+        "last_changed": "2026-05-16T14:02:04.674694+00:00",
+        "state": "unavailable"
+      },
+      "study_temperature": {
+        "attributes": {
+          "device_class": "temperature",
+          "friendly_name": "Study sensor Temperature",
+          "state_class": "measurement",
+          "unit_of_measurement": "\u00b0C"
+        },
+        "entity_id": "sensor.study_sensor_temperature",
+        "last_changed": "2026-05-16T14:02:04.674242+00:00",
+        "state": "unavailable"
+      },
+      "weather_home": {
+        "attributes": {
+          "attribution": "Weather forecast from met.no, delivered by the Norwegian Meteorological Institute.",
+          "cloud_coverage": 60.9,
+          "dew_point": 8.7,
+          "friendly_name": "Forecast Rahman's Residence",
+          "humidity": 92,
+          "precipitation_unit": "mm",
+          "pressure": 1039.4,
+          "pressure_unit": "hPa",
+          "supported_features": 3,
+          "temperature": 9.9,
+          "temperature_unit": "\u00b0C",
+          "uv_index": 0.0,
+          "visibility_unit": "km",
+          "wind_bearing": 156.4,
+          "wind_speed": 16.9,
+          "wind_speed_unit": "km/h"
+        },
+        "entity_id": "weather.forecast_home",
+        "last_changed": "2026-05-16T14:01:56.204429+00:00",
+        "state": "partlycloudy"
+      }
+    },
+    "errors": {},
+    "ok": true
+  },
+  "reminders": {
+    "error": null,
+    "ok": true,
+    "reminders": []
+  },
+  "shortcuts": {
+    "count": 32,
+    "error": null,
+    "interesting": [
+      "Update Family Shopping List",
+      "MealPrep-Old_sync"
+    ],
+    "ok": true
+  }
+}

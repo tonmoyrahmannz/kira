@@ -1,0 +1,6 @@
+# Core Systems telemetry is now push-updated from Omarchy via:
+# /home/tonmoy/kira/scripts/push_omarchy_metrics_to_ha.sh
+# (systemd user timer: kira-ha-telemetry.timer)
+#
+# Intentionally no static/template/command_line entities here to avoid
+# overriding live API-pushed telemetry entity states.

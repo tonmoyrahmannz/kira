@@ -1,0 +1,198 @@
+# Rahman Command Center - Services health layer
+
+command_line:
+  - binary_sensor:
+      name: mqtt_service_online
+      unique_id: mqtt_service_online_cli
+      command: "bash -lc 'nc -z -w2 127.0.0.1 1883 >/dev/null 2>&1 && echo ON || echo OFF'"
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      scan_interval: 30
+
+  - binary_sensor:
+      name: plex_service_online
+      unique_id: plex_service_online_cli
+      command: "bash -lc 'nc -z -w2 192.168.50.208 32400 >/dev/null 2>&1 && echo ON || echo OFF'"
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      scan_interval: 45
+
+  - binary_sensor:
+      name: tuya_gateway_reachable
+      unique_id: tuya_gateway_reachable_cli
+      command: "bash -lc 'ping -c 1 -W 1 192.168.50.100 >/dev/null 2>&1 && echo ON || echo OFF'"
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      scan_interval: 30
+
+template:
+  - binary_sensor:
+      - name: openclaw_service_online
+        unique_id: openclaw_service_online_template
+        state: "{{ is_state('binary_sensor.kira_openclaw_running', 'on') }}"
+        device_class: running
+
+      - name: tailscale_service_online
+        unique_id: tailscale_service_online_template
+        state: >-
+          {% if states('binary_sensor.tailscale_tailnet_healthy') not in ['unknown', 'unavailable'] %}
+            {{ is_state('binary_sensor.tailscale_tailnet_healthy', 'on') }}
+          {% else %}
+            {{ is_state('binary_sensor.omarchy_tailscale_connected', 'on') }}
+          {% endif %}
+        device_class: connectivity
+
+      - name: zigbee_service_online
+        unique_id: zigbee_service_online_template
+        state: >-
+          {% set has_integration = (integration_entities('zha') | count > 0) or (integration_entities('z2m') | count > 0) or (integration_entities('zigbee2mqtt') | count > 0) %}
+          {% set ethernet_coord = is_state('binary_sensor.192_168_50_100', 'on') %}
+          {{ has_integration or ethernet_coord }}
+        device_class: connectivity
+
+      - name: tuya_integration_connected
+        unique_id: tuya_integration_connected_template
+        state: >-
+          {% set tuya_entities = (integration_entities('tuya') + integration_entities('localtuya')) | unique | list %}
+          {{ tuya_entities | count > 0 }}
+        device_class: connectivity
+
+    sensor:
+      - name: openclaw_service_status
+        unique_id: openclaw_service_status_template
+        state: "{{ 'online' if is_state('binary_sensor.openclaw_service_online', 'on') else 'offline' }}"
+
+      - name: tailscale_service_status
+        unique_id: tailscale_service_status_template
+        state: "{{ 'online' if is_state('binary_sensor.tailscale_service_online', 'on') else 'offline' }}"
+
+      - name: mqtt_service_status
+        unique_id: mqtt_service_status_template
+        state: "{{ 'online' if is_state('binary_sensor.mqtt_service_online', 'on') else 'offline' }}"
+
+      - name: mqtt_last_probe_age_seconds
+        unique_id: mqtt_last_probe_age_seconds_template
+        unit_of_measurement: 's'
+        state_class: measurement
+        state: >-
+          {% set ts = as_timestamp(states.binary_sensor.mqtt_service_online.last_updated, 0) %}
+          {{ (as_timestamp(now()) - ts) | int(0) if ts > 0 else 0 }}
+
+      - name: mqtt_telemetry_freshness
+        unique_id: mqtt_telemetry_freshness_template
+        state: >-
+          {% if is_state('binary_sensor.mqtt_service_online', 'on') and (states('sensor.mqtt_last_probe_age_seconds')|int(9999) <= 180) %}
+            fresh
+          {% elif is_state('binary_sensor.mqtt_service_online', 'on') %}
+            stale
+          {% else %}
+            offline
+          {% endif %}
+
+      - name: zigbee_service_status
+        unique_id: zigbee_service_status_template
+        state: >-
+          {% if is_state('binary_sensor.zigbee_service_online', 'on') %}
+            online
+          {% else %}
+            offline
+          {% endif %}
+
+      - name: zigbee_unavailable_device_count
+        unique_id: zigbee_unavailable_device_count_template
+        unit_of_measurement: 'devices'
+        icon: mdi:alert-circle-outline
+        state: >-
+          {% set zigbee_entities = (integration_entities('zha') + integration_entities('z2m') + integration_entities('zigbee2mqtt')) | unique | list %}
+          {% set ns = namespace(ids=[]) %}
+          {% for entity_id in zigbee_entities %}
+            {% if states(entity_id) == 'unavailable' %}
+              {% set obj = entity_id.split('.')[1] %}
+              {% if obj not in ns.ids %}
+                {% set ns.ids = ns.ids + [obj] %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.ids | count }}
+
+      - name: zigbee_battery_warning_count
+        unique_id: zigbee_battery_warning_count_template
+        unit_of_measurement: 'devices'
+        icon: mdi:battery-alert-variant-outline
+        state: >-
+          {% set zigbee_entities = (integration_entities('zha') + integration_entities('z2m') + integration_entities('zigbee2mqtt')) | unique | list %}
+          {% set ns = namespace(ids=[]) %}
+          {% for entity_id in zigbee_entities %}
+            {% set domain = entity_id.split('.')[0] %}
+            {% set object_id = entity_id.split('.')[1] %}
+            {% set state = states(entity_id) %}
+
+            {% set percent_battery = ('battery' in object_id and domain == 'sensor' and (state | is_number) and (state | float(101)) <= 20) %}
+            {% set low_battery_flag = (('battery_low' in object_id or 'low_battery' in object_id) and domain == 'binary_sensor' and state == 'on') %}
+
+            {% if percent_battery or low_battery_flag %}
+              {% set device_key = object_id | regex_replace('(battery.*|low_battery.*|_battery|battery_)', '') %}
+              {% if device_key not in ns.ids %}
+                {% set ns.ids = ns.ids + [device_key] %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.ids | count }}
+
+      - name: plex_service_status
+        unique_id: plex_service_status_template
+        state: "{{ 'online' if is_state('binary_sensor.plex_service_online', 'on') else 'offline' }}"
+
+      - name: tuya_device_count
+        unique_id: tuya_device_count_template
+        unit_of_measurement: 'devices'
+        icon: mdi:devices
+        state: >-
+          {% set tuya_entities = (integration_entities('tuya') + integration_entities('localtuya')) | unique | list %}
+          {% set ns = namespace(ids=[]) %}
+          {% for entity_id in tuya_entities %}
+            {% set did = device_id(entity_id) %}
+            {% if did and did not in ns.ids %}
+              {% set ns.ids = ns.ids + [did] %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.ids | count if (ns.ids | count) > 0 else (tuya_entities | count) }}
+
+      - name: tuya_unavailable_device_count
+        unique_id: tuya_unavailable_device_count_template
+        unit_of_measurement: 'devices'
+        icon: mdi:alert-circle-outline
+        state: >-
+          {% set tuya_entities = (integration_entities('tuya') + integration_entities('localtuya')) | unique | list %}
+          {% set ns = namespace(ids=[]) %}
+          {% for entity_id in tuya_entities %}
+            {% if states(entity_id) == 'unavailable' %}
+              {% set did = device_id(entity_id) %}
+              {% set key = did if did else entity_id %}
+              {% if key not in ns.ids %}
+                {% set ns.ids = ns.ids + [key] %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.ids | count }}
+
+      - name: tuya_service_status
+        unique_id: tuya_service_status_template
+        state: >-
+          {% set connected = is_state('binary_sensor.tuya_integration_connected', 'on') %}
+          {% set gw = is_state('binary_sensor.tuya_gateway_reachable', 'on') %}
+          {% set unavailable = states('sensor.tuya_unavailable_device_count') | int(0) %}
+          {% if connected and gw and unavailable == 0 %}
+            online
+          {% elif connected and gw %}
+            warning
+          {% else %}
+            offline
+          {% endif %}
+
+      - name: tuya_last_update
+        unique_id: tuya_last_update_template
+        icon: mdi:clock-outline
+        state: >-
+          {% set ts = as_timestamp(states.binary_sensor.tuya_integration_connected.last_updated, 0) %}
+          {{ ts | timestamp_local if ts > 0 else 'unknown' }}

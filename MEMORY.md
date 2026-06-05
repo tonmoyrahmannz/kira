@@ -1,0 +1,72 @@
+# MEMORY.md (Long-Term Curated)
+
+## User Profile & Preferences
+- Human: Tonmoy Rahman.
+- **Birthday:** January 17th, 1987.
+- **Family:**
+  - Esha — birthday September 22nd, 1995.
+  - Sophie — birthday August 9th, 2021.
+  - Kian — born March 25th, 2026. 🎉
+- Prefers practical, implementation-first help and persistence that survives token/session resets.
+- Prefers auto-push to remote after successful coding/tasks (unless explicitly asked not to push).
+- Wants plain-English explanations for OpenClaw concepts (agent/session/context), especially while onboarding.
+- Interested in AI control systems, home automation, and robust operational setup.
+- For work/job-related tasks, professional profile updates, LinkedIn changes, and job advert tailoring, use the appropriate folder within `nas/Documents/Work/` as the default context/location.
+- Generate new CVs as HTML files by default under `nas/Documents/Work/`. Only create Markdown or PDF versions when explicitly requested.
+
+## Active System Context (Kira)
+- Workspace: `/Users/tonmoyrahman/Kira` on the Mac Mini.
+- OpenClaw config path: `~/.openclaw/openclaw.json`.
+- Default configured model: `openai/gpt-5.4`; current main Telegram session observed on `openai/gpt-5.5`.
+- Kira runs as a controlled operations layer (action-runner pattern), not an unrestricted shell.
+- Documentation source of truth is `docs/README.md` plus `docs/kira/*`, `docs/system-map.md`, `docs/runbooks/*`.
+- 2026-05-16: Kira/OpenClaw main Telegram runtime verified on the Mac Mini (`Macmini`, macOS 26.3, Darwin arm64). Omarchy is no longer the primary Kira runtime, though historical docs/scripts may still mention it as a legacy Linux node.
+- 2026-05-16: OpenClaw LaunchAgent verified on macOS at `~/Library/LaunchAgents/ai.openclaw.gateway.plist`, running the Homebrew OpenClaw gateway on port `18789`. `~/.openclaw/openclaw.json` points agents at `/Users/tonmoyrahman/Kira`.
+
+## Persistence Architecture (2026-03-08)
+- Implemented durable identity + recovery:
+  - `system/kira_identity.md`
+  - `system/boot_prompt.md`
+  - `docs/session_state.md`
+  - `tasks/{README,active,backlog,done}.md`
+  - `BOOT.md`
+  - `scripts/kira-resume.sh`
+  - `docs/kira/Kira_Persistence_Setup.md`
+- `AGENTS.md` startup sequence now requires reading the above recovery files each session.
+- OpenClaw bootstrap limits raised to reduce truncation risk:
+  - `agents.defaults.bootstrapMaxChars = 30000`
+  - `agents.defaults.bootstrapTotalMaxChars = 220000`
+
+## Automation
+- Daily cron reminder added for persistence maintenance:
+  - Name: `Daily Kira session-state refresh`
+  - Time: 07:15 Pacific/Auckland
+  - Purpose: refresh `docs/session_state.md`, `tasks/*`, and daily memory; send concise status when important changes occur.
+
+## Smart-Home Direction
+- User plans a universal morning Alexa briefing, triggered by phrases like “good morning” / “what do I have today?”.
+- Desired briefing sources: guest unit status, personal calendar, reminders (including iOS reminders), and optionally Outlook/work calendar.
+- Direct Alexa account/device administration by Kira is limited; bridge via Home Assistant + routines/webhooks is the practical path.
+- Home Assistant endpoint used by Kira: `http://192.168.50.166:8123`.
+- 2026-05-23: Kira can reach Home Assistant at `http://192.168.50.166:8123`. The HA account `kira` is verified as an admin user (`auth/current_user.is_admin=true`), can read `/api/states` and `/api/services`, and can list auth users via websocket. A long-lived token is stored privately at `/Users/tonmoyrahman/Kira/secrets/homeassistant.env` with `0600` permissions. Do not store the password/token in memory.
+- Home Assistant now runs on a dedicated Wyse 5070 thin client (`192.168.50.166`) with HAOS on bare metal (`generic-x86-64`), independent of the Mac Mini and VMware.
+- Current home network device map: Wyse 5070 HAOS `192.168.50.166`; Mac Mini active Kira/Hermes/Plex/NAS/Tailscale host `192.168.50.208`; Omarchy Laptop previous Kira/OpenClaw host `192.168.50.28`; ASUS router/gateway `192.168.50.1`; Gree Controller `192.168.50.188`; Neo Controller `192.168.50.224`; Tuya Zigbee Gateway `192.168.50.100`.
+- Mac Mini (`192.168.50.208`) no longer hosts HA; it continues serving Plex, NAS/SMB, Tailscale subnet routing, and auxiliary services.
+- Migration status as of 2026-05-15: bare-metal HAOS installation complete; backup restore still pending.
+- 2026-05-16: Post-migration, Home Assistant Supervisor had lost its SMB backup mount definitions. Recreated `plex_hd_backups_homeassistant` as a CIFS backup mount to `192.168.50.208` share `Plex_HD/Backups/HomeAssistant` and set it as the default backup mount again.
+
+## Token-Limit / Session-Reset Recovery SOP
+When context gets compacted or session resets, recovery should follow this durable sequence:
+1. Update/read `docs/session_state.md` (objective, last done, next step).
+2. Update/read `tasks/active.md` and `tasks/done.md`.
+3. Append key events to `memory/YYYY-MM-DD.md`.
+4. Promote durable facts/decisions to `MEMORY.md`.
+5. Use `/Users/tonmoyrahman/Kira/scripts/kira-resume.sh` for quick recovery view.
+
+## Multi-Agent Notes
+- User asked about multiple agents and inter-agent communication; answer is yes to both.
+- Recommended pattern: keep `main` as personal Kira and use additional specialist sessions/agents for isolated heavy work.
+
+## Operational Notes
+- Optional hardening still pending: `chmod 700 ~/.openclaw/credentials`.
+- Telegram group allowlist policy may need explicit sender IDs if group messaging is desired.

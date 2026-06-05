@@ -1,0 +1,187 @@
+# Rahman Command Centre - Tailnet-wide Tailscale health (Tailnet API)
+# Polls every 5 minutes from Home Assistant (no OpenClaw cron).
+# Requires in HA secrets.yaml:
+#   tailscale_devices_endpoint: "https://api.tailscale.com/api/v2/tailnet/<tailnet>/devices"
+#   tailscale_auth_header: "Bearer tskey-api-..."
+
+sensor:
+  - platform: rest
+    name: tailscale_tailnet_devices_raw
+    unique_id: tailscale_tailnet_devices_raw_rest
+    resource: !secret tailscale_devices_endpoint
+    method: GET
+    headers:
+      Authorization: !secret tailscale_auth_header
+      Accept: application/json
+    scan_interval: 300
+    timeout: 20
+    value_template: >-
+      {{ value_json.devices | count if value_json is mapping and value_json.devices is defined else 0 }}
+    json_attributes:
+      - devices
+
+template:
+  - sensor:
+      - name: tailscale_total_devices
+        unique_id: tailscale_total_devices_template
+        unit_of_measurement: devices
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {{ dev | count if dev is sequence else 0 }}
+
+      - name: tailscale_online_devices
+        unique_id: tailscale_online_devices_template
+        unit_of_measurement: devices
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% if dev is not sequence %}0
+          {% else %}
+            {% set ns = namespace(online=0) %}
+            {% for d in dev %}
+              {% set ts = as_timestamp(d.lastSeen, 0) %}
+              {% if ts > 0 and (as_timestamp(now()) - ts) <= 300 %}
+                {% set ns.online = ns.online + 1 %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.online }}
+          {% endif %}
+
+      - name: tailscale_offline_devices
+        unique_id: tailscale_offline_devices_template
+        unit_of_measurement: devices
+        state: >-
+          {% set total = states('sensor.tailscale_total_devices') | int(0) %}
+          {% set online = states('sensor.tailscale_online_devices') | int(0) %}
+          {{ [total - online, 0] | max }}
+
+      - name: tailscale_online_device_names
+        unique_id: tailscale_online_device_names_template
+        icon: mdi:lan-connect
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% if dev is not sequence %}unknown
+          {% else %}
+            {% set ns = namespace(names=[]) %}
+            {% for d in dev %}
+              {% set ts = as_timestamp(d.lastSeen, 0) %}
+              {% if ts > 0 and (as_timestamp(now()) - ts) <= 300 %}
+                {% set addr = (d.addresses[0] if d.addresses is defined and (d.addresses | count) > 0 else '') %}
+                {% if addr.endswith('.69') %}
+                  {% set name = "Tonmoy's iPhone" %}
+                {% elif addr.endswith('.29') %}
+                  {% set name = "Esha's iPhone" %}
+                {% else %}
+                  {% set name = d.hostname if d.hostname is defined else d.id %}
+                {% endif %}
+                {% set ns.names = ns.names + [name] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.names | join(', ') if ns.names | count > 0 else 'none' }}
+          {% endif %}
+
+      - name: tailscale_offline_device_names
+        unique_id: tailscale_offline_device_names_template
+        icon: mdi:lan-disconnect
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% if dev is not sequence %}unknown
+          {% else %}
+            {% set ns = namespace(names=[]) %}
+            {% for d in dev %}
+              {% set ts = as_timestamp(d.lastSeen, 0) %}
+              {% if not (ts > 0 and (as_timestamp(now()) - ts) <= 300) %}
+                {% set addr = (d.addresses[0] if d.addresses is defined and (d.addresses | count) > 0 else '') %}
+                {% if addr.endswith('.69') %}
+                  {% set name = "Tonmoy's iPhone" %}
+                {% elif addr.endswith('.29') %}
+                  {% set name = "Esha's iPhone" %}
+                {% else %}
+                  {% set name = d.hostname if d.hostname is defined else d.id %}
+                {% endif %}
+                {% set ns.names = ns.names + [name] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.names | join(', ') if ns.names | count > 0 else 'none' }}
+          {% endif %}
+
+      # Named devices requested by IP suffix mapping
+      - name: tailscale_tonmoy_iphone_last_seen
+        unique_id: tailscale_tonmoy_iphone_last_seen_template
+        device_class: timestamp
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% set ns = namespace(last='unknown') %}
+          {% if dev is sequence %}
+            {% for d in dev %}
+              {% set addr = (d.addresses[0] if d.addresses is defined and (d.addresses | count) > 0 else '') %}
+              {% if addr.endswith('.69') %}
+                {% set ns.last = d.lastSeen if d.lastSeen is defined else 'unknown' %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {{ ns.last }}
+
+      - name: tailscale_esha_iphone_last_seen
+        unique_id: tailscale_esha_iphone_last_seen_template
+        device_class: timestamp
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% set ns = namespace(last='unknown') %}
+          {% if dev is sequence %}
+            {% for d in dev %}
+              {% set addr = (d.addresses[0] if d.addresses is defined and (d.addresses | count) > 0 else '') %}
+              {% if addr.endswith('.29') %}
+                {% set ns.last = d.lastSeen if d.lastSeen is defined else 'unknown' %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {{ ns.last }}
+
+  - binary_sensor:
+      - name: tailscale_tailnet_healthy
+        unique_id: tailscale_tailnet_healthy_template
+        device_class: connectivity
+        state: >-
+          {% set total = states('sensor.tailscale_total_devices') | int(0) %}
+          {% set offline = states('sensor.tailscale_offline_devices') | int(0) %}
+          {{ total > 0 and offline == 0 }}
+
+      - name: tailscale_any_device_offline
+        unique_id: tailscale_any_device_offline_template
+        device_class: problem
+        state: >-
+          {{ states('sensor.tailscale_offline_devices') | int(0) > 0 }}
+
+      - name: tailscale_tonmoy_iphone_online
+        unique_id: tailscale_tonmoy_iphone_online_template
+        device_class: connectivity
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% set ns = namespace(online=false) %}
+          {% if dev is sequence %}
+            {% for d in dev %}
+              {% set addr = (d.addresses[0] if d.addresses is defined and (d.addresses | count) > 0 else '') %}
+              {% if addr.endswith('.69') %}
+                {% set ts = as_timestamp(d.lastSeen, 0) %}
+                {% set ns.online = (ts > 0 and (as_timestamp(now()) - ts) <= 300) %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {{ ns.online }}
+
+      - name: tailscale_esha_iphone_online
+        unique_id: tailscale_esha_iphone_online_template
+        device_class: connectivity
+        state: >-
+          {% set dev = state_attr('sensor.tailscale_tailnet_devices_raw', 'devices') %}
+          {% set ns = namespace(online=false) %}
+          {% if dev is sequence %}
+            {% for d in dev %}
+              {% set addr = (d.addresses[0] if d.addresses is defined and (d.addresses | count) > 0 else '') %}
+              {% if addr.endswith('.29') %}
+                {% set ts = as_timestamp(d.lastSeen, 0) %}
+                {% set ns.online = (ts > 0 and (as_timestamp(now()) - ts) <= 300) %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {{ ns.online }}

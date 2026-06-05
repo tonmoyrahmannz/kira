@@ -1,0 +1,90 @@
+command_line:
+  - sensor:
+      name: macmini_cpu_usage
+      unique_id: macmini_cpu_usage_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh cpu'
+      scan_interval: 90
+
+  - sensor:
+      name: macmini_gpu_usage
+      unique_id: macmini_gpu_usage_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh gpu'
+      scan_interval: 120
+
+  - sensor:
+      name: macmini_memory_usage
+      unique_id: macmini_memory_usage_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh memory'
+      scan_interval: 90
+
+  - sensor:
+      name: macmini_storage_usage
+      unique_id: macmini_storage_usage_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh storage'
+      scan_interval: 180
+
+  - sensor:
+      name: nas_total_usage
+      unique_id: nas_total_usage_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh nas_total'
+      scan_interval: 180
+
+  - sensor:
+      name: nas_media_usage_percent
+      unique_id: nas_media_usage_percent_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh nas_media'
+      scan_interval: 300
+
+  - sensor:
+      name: nas_documents_usage_percent
+      unique_id: nas_documents_usage_percent_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh nas_documents'
+      scan_interval: 300
+
+  - sensor:
+      name: nas_backups_usage_percent
+      unique_id: nas_backups_usage_percent_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh nas_backups'
+      scan_interval: 300
+
+  - sensor:
+      name: nas_archive_usage_percent
+      unique_id: nas_archive_usage_percent_cli
+      unit_of_measurement: '%'
+      state_class: measurement
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh nas_archive'
+      scan_interval: 300
+
+  - binary_sensor:
+      name: nas_online
+      unique_id: nas_online_cli
+      command: >-
+        ssh -i /config/ssh/id_ed25519_macmini -o BatchMode=yes -o ConnectTimeout=8 -o StrictHostKeyChecking=accept-new tonmoyrahman@192.168.50.208 '/Users/tonmoyrahman/kira_metrics.sh nas_online'
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      scan_interval: 60

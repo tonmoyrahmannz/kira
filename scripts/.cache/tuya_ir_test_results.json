@@ -1,0 +1,92 @@
+[
+  {
+    "script": "script.soundbar_power",
+    "http_status": 500,
+    "pass": false,
+    "detail": "500 Internal Server Error\n\nServer got itself in trouble"
+  },
+  {
+    "script": "script.soundbar_bluetooth",
+    "http_status": 500,
+    "pass": false,
+    "detail": "500 Internal Server Error\n\nServer got itself in trouble"
+  },
+  {
+    "script": "script.soundbar_volume_up",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.soundbar_volume_up\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:05.243284+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Soundbar Volume +\"},\"last_changed\":\"2026-03-08T10:22:05.243363+00:00\",\"last_reported\":\"2026-03-08T10:22:05.243363+00:00\",\"last_updated"
+  },
+  {
+    "script": "script.soundbar_volume_down",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.soundbar_volume_down\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:06.578710+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Soundbar Volume -\"},\"last_changed\":\"2026-03-08T10:22:06.579033+00:00\",\"last_reported\":\"2026-03-08T10:22:06.579033+00:00\",\"last_updat"
+  },
+  {
+    "script": "script.projector_power_on",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_power_on\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:07.744064+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Power On\"},\"last_changed\":\"2026-03-08T10:22:07.744096+00:00\",\"last_reported\":\"2026-03-08T10:22:07.744096+00:00\",\"last_update"
+  },
+  {
+    "script": "script.projector_power_off",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_power_off\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:08.930608+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Power Off\"},\"last_changed\":\"2026-03-08T10:22:08.930724+00:00\",\"last_reported\":\"2026-03-08T10:22:08.930724+00:00\",\"last_upda"
+  },
+  {
+    "script": "script.projector_source",
+    "http_status": 500,
+    "pass": false,
+    "detail": "500 Internal Server Error\n\nServer got itself in trouble"
+  },
+  {
+    "script": "script.projector_menu",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_menu\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:11.150106+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Menu\"},\"last_changed\":\"2026-03-08T10:22:11.150202+00:00\",\"last_reported\":\"2026-03-08T10:22:11.150202+00:00\",\"last_updated\":\"2026"
+  },
+  {
+    "script": "script.projector_ok",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_ok\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:12.304564+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector OK\"},\"last_changed\":\"2026-03-08T10:22:12.304652+00:00\",\"last_reported\":\"2026-03-08T10:22:12.304652+00:00\",\"last_updated\":\"2026-03-"
+  },
+  {
+    "script": "script.projector_back",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_back\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:13.543241+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Back\"},\"last_changed\":\"2026-03-08T10:22:13.543396+00:00\",\"last_reported\":\"2026-03-08T10:22:13.543396+00:00\",\"last_updated\":\"2026"
+  },
+  {
+    "script": "script.projector_exit",
+    "http_status": 500,
+    "pass": false,
+    "detail": "500 Internal Server Error\n\nServer got itself in trouble"
+  },
+  {
+    "script": "script.projector_up",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_up\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:15.857631+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Up\"},\"last_changed\":\"2026-03-08T10:22:15.857770+00:00\",\"last_reported\":\"2026-03-08T10:22:15.857770+00:00\",\"last_updated\":\"2026-03-"
+  },
+  {
+    "script": "script.projector_down",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_down\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:17.021061+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Down\"},\"last_changed\":\"2026-03-08T10:22:17.021163+00:00\",\"last_reported\":\"2026-03-08T10:22:17.021163+00:00\",\"last_updated\":\"2026"
+  },
+  {
+    "script": "script.projector_left",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_left\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:18.248974+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Left\"},\"last_changed\":\"2026-03-08T10:22:18.249065+00:00\",\"last_reported\":\"2026-03-08T10:22:18.249065+00:00\",\"last_updated\":\"2026"
+  },
+  {
+    "script": "script.projector_right",
+    "http_status": 200,
+    "pass": true,
+    "detail": "[{\"entity_id\":\"script.projector_right\",\"state\":\"on\",\"attributes\":{\"last_triggered\":\"2026-03-08T10:22:19.329734+00:00\",\"mode\":\"single\",\"current\":1,\"friendly_name\":\"Projector Right\"},\"last_changed\":\"2026-03-08T10:22:19.329855+00:00\",\"last_reported\":\"2026-03-08T10:22:19.329855+00:00\",\"last_updated\":\"20"
+  }
+]

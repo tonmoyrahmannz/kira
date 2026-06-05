@@ -1,0 +1,137 @@
+{
+  "addons": [
+    {
+      "name": "Matter Server",
+      "slug": "core_matter_server",
+      "description": "Matter WebSocket Server for Home Assistant Matter support.",
+      "advanced": false,
+      "stage": "stable",
+      "version": "8.4.0",
+      "version_latest": "8.4.0",
+      "update_available": false,
+      "available": true,
+      "detached": false,
+      "homeassistant": "2024.6.0",
+      "state": "started",
+      "repository": "core",
+      "build": false,
+      "url": "https://github.com/home-assistant/addons/tree/master/matter_server",
+      "icon": true,
+      "logo": true,
+      "system_managed": false
+    },
+    {
+      "name": "Advanced SSH & Web Terminal",
+      "slug": "a0d7b954_ssh",
+      "description": "A supercharged SSH & Web Terminal access to your Home Assistant instance",
+      "advanced": false,
+      "stage": "stable",
+      "version": "23.0.9",
+      "version_latest": "23.0.9",
+      "update_available": false,
+      "available": true,
+      "detached": false,
+      "homeassistant": "0.92.0b2",
+      "state": "started",
+      "repository": "a0d7b954",
+      "build": false,
+      "url": "https://github.com/hassio-addons/app-ssh",
+      "icon": true,
+      "logo": true,
+      "system_managed": false
+    }
+  ],
+  "info": {
+    "supervisor": "2026.05.0",
+    "homeassistant": "2026.4.1",
+    "hassos": "17.3",
+    "docker": "29.3.1",
+    "hostname": "homeassistant",
+    "operating_system": "Home Assistant OS 17.3",
+    "features": [
+      "reboot",
+      "shutdown",
+      "services",
+      "network",
+      "hostname",
+      "timedate",
+      "os_agent",
+      "haos",
+      "resolved",
+      "journal",
+      "disk",
+      "mount"
+    ],
+    "machine": "generic-x86-64",
+    "machine_id": "1fd1e954e36a4d839cf392898a21e0a2",
+    "arch": "amd64",
+    "state": "running",
+    "supported_arch": [
+      "amd64"
+    ],
+    "supported": true,
+    "channel": "stable",
+    "logging": "info",
+    "timezone": "Pacific/Auckland"
+  },
+  "backups": [
+    {
+      "slug": "a9a49f80",
+      "name": "Automatic backup 2026.4.1",
+      "date": "2026-05-11T17:25:09.143323+00:00",
+      "type": "partial",
+      "size": 112.36,
+      "size_bytes": 117821440,
+      "location": null,
+      "locations": [
+        null
+      ],
+      "protected": true,
+      "location_attributes": {
+        ".local": {
+          "protected": true,
+          "size_bytes": 117821440
+        }
+      },
+      "compressed": true,
+      "content": {
+        "homeassistant": true,
+        "folders": [
+          "media",
+          "share",
+          "ssl"
+        ],
+        "addons": []
+      }
+    },
+    {
+      "slug": "ceb42f30",
+      "name": "Automatic backup 2026.4.1",
+      "date": "2026-05-15T17:11:21.016698+00:00",
+      "type": "partial",
+      "size": 113.65,
+      "size_bytes": 119173120,
+      "location": null,
+      "locations": [
+        null
+      ],
+      "protected": false,
+      "location_attributes": {
+        ".local": {
+          "protected": false,
+          "size_bytes": 119173120
+        }
+      },
+      "compressed": true,
+      "content": {
+        "homeassistant": true,
+        "folders": [
+          "ssl",
+          "share",
+          "media"
+        ],
+        "addons": []
+      }
+    }
+  ]
+}

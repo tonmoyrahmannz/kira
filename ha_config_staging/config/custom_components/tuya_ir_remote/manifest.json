@@ -1,0 +1,9 @@
+{
+  "domain": "tuya_ir_remote",
+  "name": "Tuya IR Remote",
+  "version": "0.1.0",
+  "documentation": "https://github.com/tonmoyrahmannz/kira",
+  "requirements": [],
+  "codeowners": ["@tonmoyrahmannz"],
+  "iot_class": "cloud_polling"
+}

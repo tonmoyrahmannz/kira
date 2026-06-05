@@ -1,0 +1,29 @@
+# System health sensors for Lovelace dashboard cards
+# Copy this file to: /config/packages/system_health_monitor.yaml
+
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: processor_use
+      - type: memory_use_percent
+      - type: disk_use_percent
+        arg: /
+      - type: disk_free
+        arg: /
+      - type: disk_use
+        arg: /
+      - type: load_1m
+      - type: last_boot
+      - type: ipv4_address
+        arg: enp2s0
+      - type: throughput_network_in
+        arg: enp2s0
+      - type: throughput_network_out
+        arg: enp2s0
+
+binary_sensor:
+  - platform: ping
+    host: 1.1.1.1
+    name: internet_connection
+    count: 2
+    scan_interval: 60

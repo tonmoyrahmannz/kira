@@ -1,0 +1,35 @@
+send_button:
+  name: Send mapped IR button
+  description: Send a named button for soundbar/projector using built-in mapping.
+  fields:
+    device:
+      required: true
+      example: soundbar
+      selector:
+        select:
+          options:
+            - soundbar
+            - projector
+    button:
+      required: true
+      example: volume_up
+      selector:
+        text:
+
+send_key:
+  name: Send raw IR key
+  description: Send a raw Tuya IR key to the selected device.
+  fields:
+    device:
+      required: true
+      example: projector
+      selector:
+        select:
+          options:
+            - soundbar
+            - projector
+    key:
+      required: true
+      example: Menu
+      selector:
+        text:

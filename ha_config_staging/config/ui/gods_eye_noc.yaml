@@ -1,0 +1,335 @@
+title: God’s Eye NOC
+views:
+  - title: NOC
+    path: gods-eye-noc
+    icon: mdi:monitor-dashboard
+    type: masonry
+    cards:
+      # Row 1 — Platform ribbon
+      - type: grid
+        title: Platform Ribbon
+        columns: 4
+        square: false
+        cards:
+          - type: custom:button-card
+            entity: binary_sensor.kira_openclaw_running
+            name: Home Assistant
+            icon: mdi:home-assistant
+            show_state: true
+            state_display: >-
+              [[[ return entity && entity.state === 'on' ? 'Healthy' : 'Degraded'; ]]]
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              name:
+                - font-weight: 600
+              state:
+                - font-size: 12px
+              icon:
+                - color: >-
+                    [[[ return entity && entity.state === 'on' ? 'var(--success-color)' : 'var(--error-color)'; ]]]
+
+          - type: custom:button-card
+            entity: binary_sensor.nas_online
+            name: Mac Mini host
+            icon: mdi:desktop-classic
+            show_state: true
+            state_display: >-
+              [[[ return entity && entity.state === 'on' ? 'Online' : 'Offline'; ]]]
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              name:
+                - font-weight: 600
+              state:
+                - font-size: 12px
+              icon:
+                - color: >-
+                    [[[ return entity && entity.state === 'on' ? 'var(--success-color)' : 'var(--error-color)'; ]]]
+
+          - type: custom:button-card
+            entity: binary_sensor.omarchy_online
+            name: Omarchy laptop
+            icon: mdi:laptop
+            show_state: true
+            state_display: >-
+              [[[ return entity && entity.state === 'on' ? 'Online' : 'Offline'; ]]]
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              name:
+                - font-weight: 600
+              state:
+                - font-size: 12px
+              icon:
+                - color: >-
+                    [[[ return entity && entity.state === 'on' ? 'var(--success-color)' : 'var(--error-color)'; ]]]
+
+          - type: custom:button-card
+            entity: sensor.internet_status
+            name: Network
+            icon: mdi:wan
+            show_state: true
+            state_display: >-
+              [[[ return states['sensor.internet_status'] ? states['sensor.internet_status'].state : 'unknown'; ]]]
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              name:
+                - font-weight: 600
+              state:
+                - text-transform: capitalize
+                - font-size: 12px
+              icon:
+                - color: >-
+                    [[[ 
+                      const s = states['sensor.internet_status'] ? states['sensor.internet_status'].state : 'unknown';
+                      if (s === 'online') return 'var(--success-color)';
+                      if (s === 'degraded') return 'var(--warning-color)';
+                      return 'var(--error-color)';
+                    ]]]
+
+      # Row 2 — Service domains grid
+      - type: grid
+        title: Service Domains
+        columns: 3
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            entity: sensor.tuya_service_status
+            primary: Tuya
+            secondary: >-
+              {% set s = states('sensor.tuya_service_status') %}
+              {{ s|capitalize }} · {{ states('sensor.tuya_unavailable_device_count')|int(0) }} unavailable
+            icon: mdi:cloud
+            icon_color: >-
+              {% set s = states('sensor.tuya_service_status') %}
+              {% if s == 'online' %}green{% elif s == 'warning' %}orange{% else %}red{% endif %}
+
+          - type: custom:mushroom-template-card
+            primary: Gree
+            secondary: >-
+              {% set ents = integration_entities('gree') %}
+              {% if ents | count == 0 %}
+                Not configured
+              {% else %}
+                {{ (ents | select('in', states) | map('states') | select('eq','unavailable') | list | count) }} unavailable of {{ ents|count }}
+              {% endif %}
+            icon: mdi:air-conditioner
+            icon_color: >-
+              {% set ents = integration_entities('gree') %}
+              {% if ents | count == 0 %}
+                red
+              {% else %}
+                {% set bad = ents | select('in', states) | map('states') | select('eq','unavailable') | list | count %}
+                {% if bad == 0 %}green{% else %}orange{% endif %}
+              {% endif %}
+
+          - type: custom:mushroom-template-card
+            primary: Neo blinds
+            secondary: >-
+              {% set ents = integration_entities('neo_smart_blinds') + integration_entities('neo') %}
+              {% set ents = ents | unique | list %}
+              {% if ents | count == 0 %}
+                Not configured
+              {% else %}
+                {{ (ents | select('in', states) | map('states') | select('eq','unavailable') | list | count) }} unavailable of {{ ents|count }}
+              {% endif %}
+            icon: mdi:blinds
+            icon_color: >-
+              {% set ents = integration_entities('neo_smart_blinds') + integration_entities('neo') %}
+              {% set ents = ents | unique | list %}
+              {% if ents | count == 0 %}
+                red
+              {% else %}
+                {% set bad = ents | select('in', states) | map('states') | select('eq','unavailable') | list | count %}
+                {% if bad == 0 %}green{% else %}orange{% endif %}
+              {% endif %}
+
+          - type: custom:mushroom-template-card
+            entity: sensor.plex_service_status
+            primary: Plex
+            secondary: "{{ states('sensor.plex_service_status')|capitalize }}"
+            icon: mdi:plex
+            icon_color: "{{ 'green' if is_state('binary_sensor.plex_service_online','on') else 'red' }}"
+
+          - type: custom:mushroom-template-card
+            entity: sensor.openclaw_service_status
+            primary: OpenClaw / Kira
+            secondary: >-
+              {{ states('sensor.openclaw_service_status')|capitalize }} · PID {{ states('sensor.kira_openclaw_pid') }}
+            icon: mdi:robot-happy-outline
+            icon_color: "{{ 'green' if is_state('binary_sensor.openclaw_service_online','on') else 'red' }}"
+
+          - type: custom:mushroom-template-card
+            entity: sensor.tailscale_service_status
+            primary: Remote access
+            secondary: >-
+              {% if is_state('binary_sensor.tailscale_service_online','on') %}
+                Tailscale Online
+              {% else %}
+                Tailscale Offline
+              {% endif %}
+            icon: mdi:cloud-lock
+            icon_color: "{{ 'green' if is_state('binary_sensor.tailscale_service_online','on') else 'red' }}"
+
+      # Row 3 — Active alerts
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: Active Alerts
+          show_header_toggle: false
+        filter:
+          include:
+            - entity_id: binary_sensor.kira_openclaw_running
+              state: 'off'
+              options:
+                name: OpenClaw runtime down
+            - entity_id: binary_sensor.omarchy_online
+              state: 'off'
+              options:
+                name: Omarchy laptop offline
+            - entity_id: binary_sensor.nas_online
+              state: 'off'
+              options:
+                name: Mac Mini host offline
+            - entity_id: binary_sensor.tailscale_service_online
+              state: 'off'
+              options:
+                name: Remote access unavailable
+            - entity_id: sensor.internet_status
+              state: offline
+              options:
+                name: Internet offline
+            - entity_id: sensor.internet_status
+              state: degraded
+              options:
+                name: Internet degraded
+            - entity_id: sensor.tuya_unavailable_device_count
+              not: '0'
+              options:
+                name: Tuya unavailable devices
+            - entity_id: sensor.zigbee_unavailable_device_count
+              not: '0'
+              options:
+                name: Zigbee unavailable devices
+          exclude: []
+        sort:
+          method: name
+        show_empty: true
+        empty:
+          type: custom:html-card
+          content: |
+            <div style="padding:14px;border-radius:14px;font-weight:600;color:var(--success-color);">
+              ✅ No active alerts
+            </div>
+
+      # Row 4 — Topology map
+      - type: custom:html-card
+        title: Topology
+        content: |
+          <style>
+            .noc-topology {display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;padding:6px 2px;}
+            .node {padding:12px;border-radius:12px;background:var(--card-background-color);border:1px solid var(--divider-color);}
+            .title {font-size:13px;font-weight:600;margin-bottom:4px;}
+            .meta {font-size:12px;opacity:.8;}
+            .ok {color:var(--success-color);} .warn {color:var(--warning-color);} .bad {color:var(--error-color);} 
+          </style>
+          <div class="noc-topology">
+            <div class="node">
+              <div class="title">Internet</div>
+              <div class="meta {% if states('sensor.internet_status') == 'online' %}ok{% elif states('sensor.internet_status') == 'degraded' %}warn{% else %}bad{% endif %}">
+                {{ states('sensor.internet_status')|capitalize }}
+              </div>
+            </div>
+            <div class="node">
+              <div class="title">Home Assistant Host</div>
+              <div class="meta {% if is_state('binary_sensor.kira_openclaw_running','on') %}ok{% else %}bad{% endif %}">
+                OpenClaw {{ states('sensor.openclaw_service_status')|capitalize }}
+              </div>
+            </div>
+            <div class="node">
+              <div class="title">Mac Mini + NAS</div>
+              <div class="meta {% if is_state('binary_sensor.nas_online','on') %}ok{% else %}bad{% endif %}">
+                {% if is_state('binary_sensor.nas_online','on') %}Reachable{% else %}Offline{% endif %}
+              </div>
+            </div>
+            <div class="node">
+              <div class="title">Omarchy Laptop</div>
+              <div class="meta {% if is_state('binary_sensor.omarchy_online','on') %}ok{% else %}bad{% endif %}">
+                {% if is_state('binary_sensor.omarchy_online','on') %}Telemetry Live{% else %}No heartbeat{% endif %}
+              </div>
+            </div>
+            <div class="node">
+              <div class="title">Cloud Remote Access</div>
+              <div class="meta {% if is_state('binary_sensor.tailscale_service_online','on') %}ok{% else %}bad{% endif %}">
+                Tailscale {% if is_state('binary_sensor.tailscale_service_online','on') %}Connected{% else %}Disconnected{% endif %}
+              </div>
+            </div>
+          </div>
+
+      # Row 5 — Quick actions
+      - type: grid
+        title: Quick Actions
+        columns: 4
+        square: false
+        cards:
+          - type: custom:button-card
+            name: OpenClaw Status
+            icon: mdi:robot
+            tap_action:
+              action: navigate
+              navigation_path: /developer-tools/state
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              icon:
+                - color: var(--primary-color)
+
+          - type: custom:button-card
+            name: HA Logs
+            icon: mdi:text-box-search
+            tap_action:
+              action: navigate
+              navigation_path: /config/logs
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              icon:
+                - color: var(--primary-color)
+
+          - type: custom:button-card
+            name: Reload YAML
+            icon: mdi:reload
+            tap_action:
+              action: call-service
+              service: homeassistant.reload_all
+            confirmation:
+              text: Reload all YAML resources now?
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              icon:
+                - color: var(--warning-color)
+
+          - type: custom:button-card
+            name: Restart HA
+            icon: mdi:restart-alert
+            tap_action:
+              action: call-service
+              service: homeassistant.restart
+            confirmation:
+              text: Restart Home Assistant now?
+            styles:
+              card:
+                - padding: 14px
+                - border-radius: 14px
+              icon:
+                - color: var(--error-color)

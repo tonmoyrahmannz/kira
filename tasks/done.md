@@ -1,0 +1,32 @@
+# Done
+
+- 2026-05-17: Built Mac Mini Morning Briefing Source Pull tooling and verified Home Assistant, Reminders, Shortcuts CLI, plus Google Calendar connector fallback.
+- 2026-05-17: Updated Home Assistant `new-mobile-dashboard` Home Climate Controls card with humidity cards above each room climate tile.
+- 2026-05-17: Created Home Assistant dashboard copy `AC and Blinds - No Expander` (`ac-blinds-no-expander`) from `AC and Blinds` with all `custom:expander-card` wrappers removed from the copy only.
+- 2026-05-16: Updated canonical NAS documentation `/Volumes/Plex_HD/Backups/HomeAssistant/Smart_Home_Technical_Documentation_v5_Professional.md` to reflect the Mac Mini/Wyse/Omarchy post-migration operating model.
+- 2026-05-16: Paused MealPrep via NAS pause marker and wrapper guard, cleared 38 reminders from `Family Shopping`, and fixed `~/nas` to point at `/Volumes/Plex_HD`.
+- 2026-05-16: Verified active Kira/OpenClaw runtime is on the Mac Mini, updated durable source-of-truth docs away from Omarchy-primary assumptions, repointed the workspace `nas` symlink to `/Volumes/Plex_HD`, and regenerated the smart-home runbook with the Mac Mini NAS path.
+- 2026-04-14: Daily persistence maintenance — no activity change. Tuya IR task stalled at 29 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-13: Daily persistence maintenance — no activity change. Tuya IR task stalled at 28 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-12: Daily persistence maintenance — no activity change. Tuya IR task stalled at 27 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-11: Daily persistence maintenance — no activity change. Tuya IR task stalled at 26 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-10: Daily persistence maintenance catch-up — no activity change. Tuya IR task stalled at 25 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-09: Daily persistence maintenance — no activity change. Tuya IR task stalled at 24 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-08: Daily persistence maintenance — no activity change. Tuya IR task stalled at 23 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-07: Daily persistence maintenance — no activity change. Tuya IR task stalled at 22 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-06: Daily persistence maintenance — no activity change. Tuya IR task stalled at 21 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-05: Daily persistence maintenance — no activity change. Tuya IR task stalled at 20 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-03: Daily persistence maintenance — no activity change. Tuya IR task stalled at 18 days, still awaiting valid Tuya IoT credentials.
+- 2026-04-02: Daily persistence maintenance — no activity change. Tuya IR task stalled at 17 days.
+- 2026-04-01: Daily persistence maintenance refresh — no activity change. Tuya IR task stalled at 16 days.
+- 2026-03-26: Daily persistence maintenance refresh — no activity change. Tuya IR task stalled at 10 days.
+- 2026-03-23: Daily persistence maintenance refresh — no activity change. Tuya IR task stalled since 2026-03-16 awaiting valid Tuya IoT credentials.
+- 2026-03-16: Overhauled Rahman Command Centre dashboards, fixed topology health logic, enabled SCP access to HA `/config`, and deployed Tailscale tailnet health sensors with per-device presence tracking.
+- 2026-03-12: Refreshed durable state artifacts and recorded continuity update in daily memory.
+- Initialized durable task tracking structure under `tasks/`.
+- Implemented persistent Kira identity + boot protocol files (`system/`).
+- Added durable session continuity snapshot (`docs/session_state.md`).
+- Added startup checklist (`BOOT.md`) and resume helper script (`scripts/kira-resume.sh`).
+- Documented full persistence setup.
+- Updated OpenClaw config bootstrap limits.
+- Added daily persistence maintenance cron reminder.

@@ -1,0 +1,164 @@
+# Tuya IR Remote package (additive)
+# Place under /config/packages/tuya_ir_remote.yaml
+
+# Required in configuration.yaml (once):
+# homeassistant:
+#   packages: !include_dir_named packages
+#
+# tuya_ir_remote:
+#   access_id: !secret tuya_access_id
+#   access_secret: !secret tuya_access_secret
+#   endpoint: !secret tuya_endpoint
+#   infrared_id: ebab7105bb50cd8408etyu
+#   devices:
+#     soundbar:
+#       remote_id: eb63f0598155a83d99dyhf
+#       remote_index: 414165031
+#       category_id: 7
+#     projector:
+#       remote_id: ebfb979fc0f3bb3f1fjeap
+#       remote_index: 6667
+#       category_id: 6
+#
+# remote:
+#   - platform: tuya_ir_remote
+
+script:
+  # Soundbar
+  soundbar_power:
+    alias: Soundbar Power
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: power }
+
+  soundbar_volume_up:
+    alias: Soundbar Volume +
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: volume_up }
+
+  soundbar_volume_down:
+    alias: Soundbar Volume -
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: volume_down }
+
+  soundbar_bluetooth:
+    alias: Soundbar Bluetooth
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: bluetooth }
+
+  soundbar_play:
+    alias: Soundbar Play
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: play }
+
+  soundbar_pause:
+    alias: Soundbar Pause
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: pause }
+
+  soundbar_previous:
+    alias: Soundbar Previous
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: previous }
+
+  soundbar_next:
+    alias: Soundbar Next
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: soundbar, button: next }
+
+  # Projector
+  projector_power_on:
+    alias: Projector Power On
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: power_on }
+
+  projector_power_off:
+    alias: Projector Power Off
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: power_off }
+
+  projector_source:
+    alias: Projector Source
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: source }
+
+  projector_menu:
+    alias: Projector Menu
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: menu }
+
+  projector_ok:
+    alias: Projector OK
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: ok }
+
+  projector_back:
+    alias: Projector Back
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: back }
+
+  projector_exit:
+    alias: Projector Exit
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: exit }
+
+  projector_up:
+    alias: Projector Up
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: up }
+
+  projector_down:
+    alias: Projector Down
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: down }
+
+  projector_left:
+    alias: Projector Left
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: left }
+
+  projector_right:
+    alias: Projector Right
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: right }
+
+  projector_mute:
+    alias: Projector Mute
+    sequence:
+      - service: tuya_ir_remote.send_button
+        data: { device: projector, button: mute }
+
+  # Optional extra (keep disabled until confirmed in your profile)
+  # projector_mode:
+  #   alias: Projector Mode
+  #   sequence:
+  #     - service: tuya_ir_remote.send_button
+  #       data: { device: projector, button: mode }
+  # projector_input:
+  #   alias: Projector Input
+  #   sequence:
+  #     - service: tuya_ir_remote.send_button
+  #       data: { device: projector, button: input }
+  # projector_info:
+  #   alias: Projector Info
+  #   sequence:
+  #     - service: tuya_ir_remote.send_button
+  #       data: { device: projector, button: info }

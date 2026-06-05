@@ -1,0 +1,28 @@
+template:
+  - binary_sensor:
+      - name: ping_google
+        unique_id: ping_google_template
+        state: "{{ is_state('binary_sensor.8_8_8_8', 'on') }}"
+      - name: ping_cloudflare
+        unique_id: ping_cloudflare_template
+        state: "{{ is_state('binary_sensor.1_1_1_1', 'on') }}"
+
+    sensor:
+      - name: internet_status
+        unique_id: internet_status_template
+        state: >-
+          {% set g = is_state('binary_sensor.ping_google', 'on') %}
+          {% set c = is_state('binary_sensor.ping_cloudflare', 'on') %}
+          {% if g and c %}
+            online
+          {% elif g or c %}
+            degraded
+          {% else %}
+            offline
+          {% endif %}
+        icon: >-
+          {% set s = states('sensor.internet_status') %}
+          {% if s == 'online' %}mdi:web-check
+          {% elif s == 'degraded' %}mdi:web-clock
+          {% else %}mdi:web-off
+          {% endif %}
