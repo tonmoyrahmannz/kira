@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rahman Household Budget Planner</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --line: #dfe4ea;
+      --accent: #2563eb;
+      --accent-soft: #eaf1ff;
+      --good: #12805c;
+      --warn: #b76e00;
+      --bad: #b42318;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    header {
+      background: linear-gradient(135deg, #172033 0%, #243b68 100%);
+      color: #fff;
+      padding: 28px 20px;
+    }
+
+    header .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: rgba(255,255,255,0.82);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 22px auto 60px;
+      padding: 0 18px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 850px) {
+      .topbar { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .scenario-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    button, .file-label {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 10px 13px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.15s ease;
+      user-select: none;
+    }
+
+    button:hover, .file-label:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    button.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #1746a2;
+      font-weight: 700;
+    }
+
+    button.danger {
+      color: var(--bad);
+      border-color: #f3c4bf;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .grid-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 540px) {
+      .grid-metrics { grid-template-columns: 1fr; }
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      min-height: 112px;
+    }
+
+    .metric .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .metric .value {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .metric .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 950px) {
+      .content-grid { grid-template-columns: 1fr; }
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      margin: 18px 0 8px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 0 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    td {
+      padding: 7px 6px;
+      border-bottom: 1px solid #eef1f5;
+      vertical-align: middle;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-size: 14px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    input[type="number"] {
+      text-align: right;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+
+    .row-actions {
+      width: 44px;
+      text-align: right;
+    }
+
+    .icon-btn {
+      padding: 7px 9px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .chart-wrap {
+      height: 280px;
+      position: relative;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .summary-box {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      line-height: 1.5;
+      color: var(--ink);
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 2px 4px 2px 0;
+    }
+
+    .progress {
+      height: 12px;
+      border-radius: 99px;
+      background: #edf1f7;
+      overflow: hidden;
+      margin: 10px 0 4px;
+    }
+
+    .progress > div {
+      height: 100%;
+      border-radius: 99px;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.2s ease;
+    }
+
+    .notes {
+      min-height: 110px;
+      resize: vertical;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .hidden-file {
+      display: none;
+    }
+
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 650px) {
+      .account-grid { grid-template-columns: 1fr; }
+    }
+
+    .account-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fbfcfe;
+    }
+
+    .account-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .account-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    @media print {
+      header, .toolbar, button, .file-label { display: none !important; }
+      body { background: #fff; }
+      main { max-width: none; margin: 0; }
+      .panel, .metric { box-shadow: none; break-inside: avoid; }
+      .content-grid, .topbar { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Rahman Household Budget Planner</h1>
+      <p class="subtitle">Fortnightly budget tool for Tonmoy & Esha. Adjust income, expenses, savings goals and scenarios. Everything saves locally in this browser.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="topbar">
+      <div class="panel">
+        <h2>Scenario</h2>
+        <p class="small">Use this to compare the current maternity-leave phase against the later return-to-work/daycare phase.</p>
+        <div class="scenario-buttons">
+          <button id="scenarioMaternity" class="active">Maternity leave</button>
+          <button id="scenarioReturn">Esha 4 days + Kian daycare</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Actions</h2>
+        <div class="toolbar">
+          <button class="primary" id="saveBtn">Save changes</button>
+          <button id="exportBtn">Export JSON</button>
+          <label class="file-label" for="importFile">Import JSON</label>
+          <input id="importFile" class="hidden-file" type="file" accept="application/json"/>
+          <button id="printBtn">Print / PDF</button>
+          <button class="danger" id="resetBtn">Reset</button>
+        </div>
+        <p class="small" id="saveStatus">Autosaves in your browser after changes.</p>
+      </div>
+    </section>
+
+    <section class="grid-metrics">
+      <div class="metric">
+        <div class="label">Fortnightly Income</div>
+        <div class="value" id="incomeTotal">$0</div>
+        <div class="hint">Salary, maternity/part-time income and Airbnb.</div>
+      </div>
+      <div class="metric">
+        <div class="label">Fortnightly Expenses</div>
+        <div class="value" id="expenseTotal">$0</div>
+        <div class="hint">Household operating cost for selected scenario.</div>
+      </div>
+      <div class="metric">
+        <div class="label">Fortnightly Surplus</div>
+        <div class="value" id="surplusTotal">$0</div>
+        <div class="hint" id="surplusHint">Money available after expenses.</div>
+      </div>
+      <div class="metric">
+        <div class="label">Annualised Surplus</div>
+        <div class="value" id="annualSurplus">$0</div>
+        <div class="hint">Fortnightly surplus × 26.</div>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <div class="panel">
+        <h2>Income</h2>
+        <table id="incomeTable">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th style="width:135px;">Fortnightly</th>
+              <th class="row-actions"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="toolbar">
+          <button id="addIncome">Add income</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Expenses</h2>
+        <table id="expenseTable">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th style="width:135px;">Fortnightly</th>
+              <th style="width:150px;">Account</th>
+              <th class="row-actions"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="toolbar">
+          <button id="addExpense">Add expense</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Expense Breakdown</h2>
+        <div class="chart-wrap">
+          <canvas id="expenseChart"></canvas>
+        </div>
+        <p class="small">Shows where your fortnightly money goes. Adjust rows above to update this chart.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Income vs Expenses</h2>
+        <div class="chart-wrap">
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="summary-box" id="scenarioInsight"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Savings & Goals</h2>
+        <table id="savingsTable">
+          <thead>
+            <tr>
+              <th>Goal</th>
+              <th style="width:115px;">Current</th>
+              <th style="width:115px;">Target</th>
+              <th style="width:115px;">Fortnightly</th>
+              <th class="row-actions"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="toolbar">
+          <button id="addSaving">Add goal</button>
+        </div>
+        <div id="goalProgress"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Recommended Account Buckets</h2>
+        <div class="account-grid" id="accountGrid"></div>
+      </div>
+
+      <div class="panel wide">
+        <h2>Household Notes</h2>
+        <textarea class="notes" id="notes"></textarea>
+        <p class="small">Use this for reminders such as mortgage rate, insurance renewal, daycare start date, or rental sale milestones.</p>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      This is a household planning tool, not personalised regulated financial advice. Use it for budgeting and scenario planning, and confirm major decisions with a qualified adviser where appropriate.
+    </p>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "rahman_household_budget_v1";
+
+    const accounts = [
+      { name: "Tonmoy Personal", purpose: "Tonmoy personal spending / no-questions allowance." },
+      { name: "Esha Personal", purpose: "Esha personal spending / no-questions allowance." },
+      { name: "Joint Everyday / Operations", purpose: "Groceries, food, fuel, entertainment, eating out and day-to-day spending." },
+      { name: "Joint Bills", purpose: "Mortgage, insurance, utilities, phone, internet and predictable direct debits." },
+      { name: "Joint Savings / Emergency Fund", purpose: "Emergency buffer and short-term family safety reserve. Target $30k-$40k." },
+      { name: "Airbnb / Rental Income", purpose: "Airbnb income, supplies, cleaning, property tracking and tax clarity." },
+      { name: "Daycare", purpose: "Childcare tracking. Keep separate while costs change from maternity leave to daycare phase." },
+      { name: "Property & Rates", purpose: "Council rates, planned property costs and home maintenance allocation." }
+    ];
+
+    const defaultData = {
+      activeScenario: "maternity",
+      scenarios: {
+        maternity: {
+          label: "Maternity leave",
+          income: [
+            { name: "Tonmoy income", amount: 4400 },
+            { name: "Esha maternity pay", amount: 1360 },
+            { name: "Airbnb income", amount: 1000 }
+          ],
+          expenses: [
+            { name: "Mortgage", amount: 2740, account: "Joint Bills" },
+            { name: "Insurance, all inclusive", amount: 500, account: "Joint Bills" },
+            { name: "Rates", amount: 326, account: "Property & Rates" },
+            { name: "Utilities", amount: 200, account: "Joint Bills" },
+            { name: "Internet + mobile", amount: 75, account: "Joint Bills" },
+            { name: "Childcare", amount: 100, account: "Daycare" },
+            { name: "Food", amount: 300, account: "Joint Everyday / Operations" },
+            { name: "Personal spending", amount: 300, account: "Joint Everyday / Operations" },
+            { name: "Fuel", amount: 200, account: "Joint Everyday / Operations" },
+            { name: "Entertainment", amount: 150, account: "Joint Everyday / Operations" },
+            { name: "Eating out", amount: 100, account: "Joint Everyday / Operations" },
+            { name: "Home maintenance", amount: 100, account: "Property & Rates" },
+            { name: "Subscriptions", amount: 100, account: "Joint Bills" },
+            { name: "Miscellaneous", amount: 200, account: "Joint Everyday / Operations" }
+          ]
+        },
+        returnWork: {
+          label: "Esha 4 days + Kian daycare",
+          income: [
+            { name: "Tonmoy income", amount: 4400 },
+            { name: "Esha part-time income", amount: 1700 },
+            { name: "Airbnb income", amount: 1000 }
+          ],
+          expenses: [
+            { name: "Mortgage", amount: 2740, account: "Joint Bills" },
+            { name: "Insurance, all inclusive", amount: 500, account: "Joint Bills" },
+            { name: "Rates", amount: 326, account: "Property & Rates" },
+            { name: "Utilities", amount: 200, account: "Joint Bills" },
+            { name: "Internet + mobile", amount: 75, account: "Joint Bills" },
+            { name: "Childcare", amount: 1000, account: "Daycare" },
+            { name: "Food", amount: 300, account: "Joint Everyday / Operations" },
+            { name: "Personal spending", amount: 300, account: "Joint Everyday / Operations" },
+            { name: "Fuel", amount: 200, account: "Joint Everyday / Operations" },
+            { name: "Entertainment", amount: 150, account: "Joint Everyday / Operations" },
+            { name: "Eating out", amount: 100, account: "Joint Everyday / Operations" },
+            { name: "Home maintenance", amount: 100, account: "Property & Rates" },
+            { name: "Subscriptions", amount: 100, account: "Joint Bills" },
+            { name: "Miscellaneous", amount: 200, account: "Joint Everyday / Operations" }
+          ]
+        }
+      },
+      savings: [
+        { name: "Emergency Fund", current: 20000, target: 40000, fortnightly: 500 },
+        { name: "Mortgage Extra Repayment", current: 0, target: 50000, fortnightly: 500 },
+        { name: "Tesla / Future Goals", current: 0, target: 80000, fortnightly: 0 }
+      ],
+      notes: "Priority order: emergency fund, rental sale and mortgage reduction, then future goals such as Tesla. Keep Daycare separate until costs stabilise."
+    };
+
+    let data = loadData();
+    let saveTimer = null;
+
+    function deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return deepClone(defaultData);
+      try {
+        const parsed = JSON.parse(raw);
+        return parsed;
+      } catch {
+        return deepClone(defaultData);
+      }
+    }
+
+    function saveData(manual = false) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const status = document.getElementById("saveStatus");
+      status.textContent = manual ? "Saved locally in this browser." : "Autosaved locally.";
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        status.textContent = "Autosaves in your browser after changes.";
+      }, 2500);
+    }
+
+    function formatMoney(value) {
+      const sign = value < 0 ? "-" : "";
+      const abs = Math.abs(value);
+      return sign + "$" + abs.toLocaleString("en-NZ", { maximumFractionDigits: 0 });
+    }
+
+    function getScenario() {
+      return data.scenarios[data.activeScenario];
+    }
+
+    function sum(items, field = "amount") {
+      return items.reduce((total, item) => total + (Number(item[field]) || 0), 0);
+    }
+
+    function accountOptions(selected) {
+      return accounts.map(a => `<option value="${escapeHtml(a.name)}" ${a.name === selected ? "selected" : ""}>${escapeHtml(a.name)}</option>`).join("");
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[s]));
+    }
+
+    function render() {
+      renderScenarioButtons();
+      renderTables();
+      renderSavings();
+      renderAccounts();
+      renderMetrics();
+      renderCharts();
+      document.getElementById("notes").value = data.notes || "";
+    }
+
+    function renderScenarioButtons() {
+      document.getElementById("scenarioMaternity").classList.toggle("active", data.activeScenario === "maternity");
+      document.getElementById("scenarioReturn").classList.toggle("active", data.activeScenario === "returnWork");
+    }
+
+    function renderTables() {
+      const scenario = getScenario();
+      const incomeBody = document.querySelector("#incomeTable tbody");
+      const expenseBody = document.querySelector("#expenseTable tbody");
+
+      incomeBody.innerHTML = scenario.income.map((item, idx) => `
+        <tr>
+          <td><input value="${escapeHtml(item.name)}" data-type="income" data-index="${idx}" data-field="name" /></td>
+          <td><input type="number" value="${item.amount}" data-type="income" data-index="${idx}" data-field="amount" /></td>
+          <td class="row-actions"><button class="icon-btn danger" data-action="deleteIncome" data-index="${idx}">×</button></td>
+        </tr>
+      `).join("");
+
+      expenseBody.innerHTML = scenario.expenses.map((item, idx) => `
+        <tr>
+          <td><input value="${escapeHtml(item.name)}" data-type="expense" data-index="${idx}" data-field="name" /></td>
+          <td><input type="number" value="${item.amount}" data-type="expense" data-index="${idx}" data-field="amount" /></td>
+          <td><select data-type="expense" data-index="${idx}" data-field="account">${accountOptions(item.account)}</select></td>
+          <td class="row-actions"><button class="icon-btn danger" data-action="deleteExpense" data-index="${idx}">×</button></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderSavings() {
+      const body = document.querySelector("#savingsTable tbody");
+      body.innerHTML = data.savings.map((goal, idx) => `
+        <tr>
+          <td><input value="${escapeHtml(goal.name)}" data-type="saving" data-index="${idx}" data-field="name" /></td>
+          <td><input type="number" value="${goal.current}" data-type="saving" data-index="${idx}" data-field="current" /></td>
+          <td><input type="number" value="${goal.target}" data-type="saving" data-index="${idx}" data-field="target" /></td>
+          <td><input type="number" value="${goal.fortnightly}" data-type="saving" data-index="${idx}" data-field="fortnightly" /></td>
+          <td class="row-actions"><button class="icon-btn danger" data-action="deleteSaving" data-index="${idx}">×</button></td>
+        </tr>
+      `).join("");
+
+      const progress = document.getElementById("goalProgress");
+      progress.innerHTML = data.savings.map(goal => {
+        const current = Number(goal.current) || 0;
+        const target = Math.max(Number(goal.target) || 0, 1);
+        const pct = Math.min(100, Math.max(0, (current / target) * 100));
+        const remaining = Math.max(0, target - current);
+        const f = Number(goal.fortnightly) || 0;
+        const fortnights = f > 0 ? Math.ceil(remaining / f) : null;
+        const time = fortnights ? `${fortnights} fortnights, about ${Math.ceil(fortnights / 26 * 12)} months` : "No current contribution set";
+        return `
+          <div class="summary-box">
+            <strong>${escapeHtml(goal.name)}</strong>
+            <div class="progress"><div style="width:${pct}%"></div></div>
+            <div class="small">${formatMoney(current)} of ${formatMoney(target)} saved. Remaining ${formatMoney(remaining)}. ${time}.</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderAccounts() {
+      const grid = document.getElementById("accountGrid");
+      grid.innerHTML = accounts.map(a => `
+        <div class="account-card">
+          <strong>${escapeHtml(a.name)}</strong>
+          <span>${escapeHtml(a.purpose)}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderMetrics() {
+      const scenario = getScenario();
+      const incomeTotal = sum(scenario.income);
+      const expenseTotal = sum(scenario.expenses);
+      const surplus = incomeTotal - expenseTotal;
+      const annual = surplus * 26;
+      const savingsPlan = sum(data.savings, "fortnightly");
+      const afterSavings = surplus - savingsPlan;
+
+      document.getElementById("incomeTotal").textContent = formatMoney(incomeTotal);
+      document.getElementById("expenseTotal").textContent = formatMoney(expenseTotal);
+      const surplusEl = document.getElementById("surplusTotal");
+      surplusEl.textContent = formatMoney(surplus);
+      surplusEl.className = "value " + (surplus >= 1000 ? "good" : surplus >= 0 ? "warn" : "bad");
+      document.getElementById("annualSurplus").textContent = formatMoney(annual);
+
+      const hint = document.getElementById("surplusHint");
+      if (afterSavings >= 0) {
+        hint.innerHTML = `After planned savings of ${formatMoney(savingsPlan)}, remaining buffer is <strong>${formatMoney(afterSavings)}</strong>.`;
+      } else {
+        hint.innerHTML = `Planned savings exceed surplus by <strong>${formatMoney(Math.abs(afterSavings))}</strong>. Reduce goals or expenses.`;
+      }
+
+      const insight = document.getElementById("scenarioInsight");
+      const daycare = scenario.expenses.find(e => e.name.toLowerCase().includes("childcare"));
+      const mortgage = scenario.expenses.find(e => e.name.toLowerCase().includes("mortgage"));
+      const mortgagePct = incomeTotal ? ((mortgage?.amount || 0) / incomeTotal * 100) : 0;
+      const expensePct = incomeTotal ? (expenseTotal / incomeTotal * 100) : 0;
+
+      insight.innerHTML = `
+        <strong>${escapeHtml(scenario.label)} insight:</strong><br>
+        Expenses use <strong>${expensePct.toFixed(1)}%</strong> of fortnightly income.
+        Mortgage uses <strong>${mortgagePct.toFixed(1)}%</strong> of income.
+        Childcare is currently <strong>${formatMoney(daycare?.amount || 0)}</strong> per fortnight.
+        <div style="margin-top:8px;">
+          <span class="pill">Emergency target: $30k-$40k</span>
+          <span class="pill">Tesla: future goal</span>
+          <span class="pill">Priority: mortgage reduction</span>
+        </div>
+      `;
+    }
+
+    function renderCharts() {
+      drawExpenseChart();
+      drawBarChart();
+    }
+
+    function drawExpenseChart() {
+      const canvas = document.getElementById("expenseChart");
+      const ctx = canvas.getContext("2d");
+      setupCanvas(canvas, ctx);
+      const scenario = getScenario();
+
+      const grouped = {};
+      scenario.expenses.forEach(e => {
+        grouped[e.account] = (grouped[e.account] || 0) + (Number(e.amount) || 0);
+      });
+
+      const entries = Object.entries(grouped).sort((a, b) => b[1] - a[1]);
+      const total = entries.reduce((t, [,v]) => t + v, 0);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!total) return;
+
+      const cx = canvas.width * 0.31;
+      const cy = canvas.height * 0.5;
+      const radius = Math.min(canvas.width, canvas.height) * 0.32;
+
+      let start = -Math.PI / 2;
+      entries.forEach(([name, value], i) => {
+        const angle = (value / total) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, start, start + angle);
+        ctx.closePath();
+        ctx.fillStyle = palette(i);
+        ctx.fill();
+        start += angle;
+      });
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius * 0.55, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+
+      ctx.fillStyle = "#172033";
+      ctx.font = "bold 18px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(formatMoney(total), cx, cy - 2);
+      ctx.fillStyle = "#5f6b7a";
+      ctx.font = "12px Arial";
+      ctx.fillText("expenses", cx, cy + 16);
+
+      const legendX = canvas.width * 0.60;
+      let y = 34;
+      ctx.textAlign = "left";
+      entries.forEach(([name, value], i) => {
+        ctx.fillStyle = palette(i);
+        ctx.fillRect(legendX, y - 10, 12, 12);
+        ctx.fillStyle = "#172033";
+        ctx.font = "13px Arial";
+        ctx.fillText(shorten(name, 24), legendX + 20, y);
+        ctx.fillStyle = "#5f6b7a";
+        ctx.fillText(`${formatMoney(value)} (${(value / total * 100).toFixed(0)}%)`, legendX + 20, y + 17);
+        y += 42;
+      });
+    }
+
+    function drawBarChart() {
+      const canvas = document.getElementById("barChart");
+      const ctx = canvas.getContext("2d");
+      setupCanvas(canvas, ctx);
+      const scenario = getScenario();
+      const income = sum(scenario.income);
+      const expenses = sum(scenario.expenses);
+      const savings = sum(data.savings, "fortnightly");
+      const surplus = income - expenses;
+      const afterSavings = surplus - savings;
+      const items = [
+        ["Income", income],
+        ["Expenses", expenses],
+        ["Planned savings", savings],
+        ["After savings", afterSavings]
+      ];
+      const max = Math.max(...items.map(i => Math.abs(i[1])), 1);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const left = 140;
+      const right = 26;
+      const barH = 34;
+      const gap = 26;
+      let y = 42;
+
+      items.forEach(([label, value], i) => {
+        const w = Math.abs(value) / max * (canvas.width - left - right);
+        ctx.fillStyle = "#172033";
+        ctx.font = "14px Arial";
+        ctx.textAlign = "right";
+        ctx.fillText(label, left - 14, y + 22);
+
+        ctx.fillStyle = value < 0 ? "#b42318" : palette(i);
+        ctx.fillRect(left, y, w, barH);
+
+        ctx.fillStyle = "#172033";
+        ctx.font = "bold 14px Arial";
+        ctx.textAlign = "left";
+        ctx.fillText(formatMoney(value), left + w + 10, y + 22);
+        y += barH + gap;
+      });
+    }
+
+    function setupCanvas(canvas, ctx) {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+
+    function palette(i) {
+      const colors = ["#2563eb", "#12805c", "#b76e00", "#7c3aed", "#0891b2", "#db2777", "#475569", "#ea580c"];
+      return colors[i % colors.length];
+    }
+
+    function shorten(text, max) {
+      return text.length > max ? text.slice(0, max - 1) + "…" : text;
+    }
+
+    function updateFromInput(input) {
+      const type = input.dataset.type;
+      const index = Number(input.dataset.index);
+      const field = input.dataset.field;
+      const value = input.type === "number" ? Number(input.value || 0) : input.value;
+
+      if (type === "income") {
+        data.scenarios[data.activeScenario].income[index][field] = value;
+      } else if (type === "expense") {
+        data.scenarios[data.activeScenario].expenses[index][field] = value;
+      } else if (type === "saving") {
+        data.savings[index][field] = value;
+      }
+
+      saveData(false);
+      renderMetrics();
+      renderCharts();
+      if (type === "saving") renderSavings();
+    }
+
+    document.addEventListener("input", (event) => {
+      if (event.target.matches("input[data-type], select[data-type]")) {
+        updateFromInput(event.target);
+      }
+      if (event.target.id === "notes") {
+        data.notes = event.target.value;
+        saveData(false);
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      if (event.target.matches("select[data-type]")) {
+        updateFromInput(event.target);
+        renderTables();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const btn = event.target.closest("button");
+      if (!btn) return;
+      const action = btn.dataset.action;
+      const idx = Number(btn.dataset.index);
+      const scenario = getScenario();
+
+      if (action === "deleteIncome") scenario.income.splice(idx, 1);
+      if (action === "deleteExpense") scenario.expenses.splice(idx, 1);
+      if (action === "deleteSaving") data.savings.splice(idx, 1);
+
+      if (action) {
+        saveData(false);
+        render();
+      }
+    });
+
+    document.getElementById("scenarioMaternity").addEventListener("click", () => {
+      data.activeScenario = "maternity";
+      saveData(false);
+      render();
+    });
+
+    document.getElementById("scenarioReturn").addEventListener("click", () => {
+      data.activeScenario = "returnWork";
+      saveData(false);
+      render();
+    });
+
+    document.getElementById("addIncome").addEventListener("click", () => {
+      getScenario().income.push({ name: "New income", amount: 0 });
+      saveData(false);
+      render();
+    });
+
+    document.getElementById("addExpense").addEventListener("click", () => {
+      getScenario().expenses.push({ name: "New expense", amount: 0, account: "Joint Bills" });
+      saveData(false);
+      render();
+    });
+
+    document.getElementById("addSaving").addEventListener("click", () => {
+      data.savings.push({ name: "New goal", current: 0, target: 1000, fortnightly: 0 });
+      saveData(false);
+      render();
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", () => saveData(true));
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      if (!confirm("Reset all budget data to the original defaults?")) return;
+      data = deepClone(defaultData);
+      saveData(true);
+      render();
+    });
+
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "rahman-household-budget.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("importFile").addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          data = JSON.parse(reader.result);
+          saveData(true);
+          render();
+        } catch {
+          alert("Could not import this file. Please choose a valid exported budget JSON file.");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    });
+
+    window.addEventListener("resize", () => renderCharts());
+
+    render();
+    saveData(false);
+  </script>
+</body>
+</html>

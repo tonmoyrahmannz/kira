@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="292" height="64" viewBox="0 0 292 64" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Whiro Analytics</title>
+  <desc id="desc">A professional wordmark with a rising analytics bar icon.</desc>
+  <defs>
+    <linearGradient id="barAccent" x1="20" y1="52" x2="42" y2="8" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F766E"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+
+  <g aria-hidden="true">
+    <rect x="10" y="27" width="9" height="25" rx="3" fill="#10213F"/>
+    <rect x="24" y="17" width="9" height="35" rx="3" fill="url(#barAccent)"/>
+    <rect x="38" y="8" width="9" height="44" rx="3" fill="#10213F"/>
+    <rect x="52" y="22" width="9" height="30" rx="3" fill="#10213F"/>
+    <path d="M10 52H61" stroke="#D7E2EA" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="28.5" cy="11" r="3.5" fill="#14B8A6"/>
+  </g>
+
+  <g fill="#10213F">
+    <text x="78" y="39" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="800" letter-spacing="0">Whiro</text>
+    <text x="161" y="39" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="650" letter-spacing="0">Analytics</text>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-05-16T02:03:43Z",
+  "status": "failed_no_bridge",
+  "items_imported": 0,
+  "backup_path": "",
+  "note": "osascript not found; set REMINDERS_BRIDGE_SSH or REMINDERS_ITEMS_FILE"
+}

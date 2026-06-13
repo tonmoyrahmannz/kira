@@ -50,8 +50,9 @@
 - Home Assistant endpoint used by Kira: `http://192.168.50.166:8123`.
 - 2026-05-23: Kira can reach Home Assistant at `http://192.168.50.166:8123`. The HA account `kira` is verified as an admin user (`auth/current_user.is_admin=true`), can read `/api/states` and `/api/services`, and can list auth users via websocket. A long-lived token is stored privately at `/Users/tonmoyrahman/Kira/secrets/homeassistant.env` with `0600` permissions. Do not store the password/token in memory.
 - Home Assistant now runs on a dedicated Wyse 5070 thin client (`192.168.50.166`) with HAOS on bare metal (`generic-x86-64`), independent of the Mac Mini and VMware.
-- Current home network device map: Wyse 5070 HAOS `192.168.50.166`; Mac Mini active Kira/Hermes/Plex/NAS/Tailscale host `192.168.50.208`; Omarchy Laptop previous Kira/OpenClaw host `192.168.50.28`; ASUS router/gateway `192.168.50.1`; Gree Controller `192.168.50.188`; Neo Controller `192.168.50.224`; Tuya Zigbee Gateway `192.168.50.100`.
-- Mac Mini (`192.168.50.208`) no longer hosts HA; it continues serving Plex, NAS/SMB, Tailscale subnet routing, and auxiliary services.
+- Current home network device map: Wyse 5070 HAOS `192.168.50.166`; Mac Mini Kira/Hermes/Plex/NAS host `192.168.50.208`; Omarchy Laptop `192.168.50.28`; ASUS router/gateway `192.168.50.1`; Gree Controller `192.168.50.188`; Neo Controller `192.168.50.224`; Tuya Zigbee Gateway `192.168.50.100`.
+- Mac Mini (`192.168.50.208`) no longer hosts HA and no longer runs Tailscale subnet routing; it continues serving Plex, NAS/SMB, and auxiliary services.
+- 2026-06-13: **Full Kira workspace consolidation** — `context/`, `tools/`, and `mealprep/` all moved from NAS into `~/Kira/`. NAS `Documents/Kira/` and `Documents/MealPrep/` removed entirely. All scripts/skills updated to default to `~/Kira/` paths. All directories renamed to lowercase-kebab convention (`Context/` → `context/`, `ha_config_staging/` → `ha-config-staging/`, etc.).
 - Migration status as of 2026-05-15: bare-metal HAOS installation complete; backup restore still pending.
 - 2026-05-16: Post-migration, Home Assistant Supervisor had lost its SMB backup mount definitions. Recreated `plex_hd_backups_homeassistant` as a CIFS backup mount to `192.168.50.208` share `Plex_HD/Backups/HomeAssistant` and set it as the default backup mount again.
 

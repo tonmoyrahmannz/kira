@@ -18,6 +18,7 @@ Before doing anything else:
 6. Read `docs/session_state.md` — current session/task continuity snapshot
 7. Read `memory/YYYY-MM-DD.md` (today + yesterday) for recent context
 8. **If in MAIN SESSION** (direct chat with your human): Also read `MEMORY.md`
+9. Optionally skim `context/` (e.g. `context/principles/`, `context/personal/`) for user context if the session topic suggests it — these are reference docs, not required on every boot
 
 Don't ask permission. Just do it.
 
@@ -214,3 +215,33 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Workspace Layout
+
+```
+~/Kira/
+├── context/           # Reference docs (moved from NAS 2026-06-13)
+│   ├── career/        #   Career roadmaps
+│   ├── garden/        #   Garden journals & knowledge base
+│   ├── home-automation/ # HA context
+│   ├── household-finance/ # Budget & financial context
+│   ├── personal/      # Master personal context
+│   ├── principles/    # Decision principles
+│   ├── whiro-analytics/ # Business docs (brand, offers, sales)
+├── docs/              # Documentation, runbooks, system docs
+├── ha-config-staging/ # Home Assistant YAML staging
+├── mealprep/          # Live meal plans, recipes, shopping lists, inventory (moved from NAS)
+├── memory/            # Daily logs (YYYY-MM-DD.md)
+├── scripts/           # Python/shell automation scripts
+├── secrets/           # API tokens (0600 permissions)
+├── skills/            # Kira skills (mealprep, etc.)
+├── state/             # Runtime state files
+├── system/            # Boot & identity files
+├── tasks/             # Active/backlog/done tasks
+├── tools/             # Household budget planner (moved from NAS)
+├── logs/              # Error logs
+├── config/            # Environment config files
+├── AGENTS.md, SOUL.md, USER.md, MEMORY.md, etc.
+```
+
+**All canonical files live in `~/Kira/`.** The NAS Kira directory was fully cleaned 2026-06-13 after consolidation.

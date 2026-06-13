@@ -3,8 +3,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="${ROOT:-$(cd -- "$SCRIPT_DIR/../../.." && pwd)}"
-NAS_ROOT="${NAS_ROOT:-${HOME}/nas}"
-NAS_MEALPREP_DIR="${NAS_MEALPREP_DIR:-${NAS_ROOT}/Documents/MealPrep}"
+NAS_ROOT="${NAS_ROOT:-${HOME}/Kira}"
+NAS_MEALPREP_DIR="${NAS_MEALPREP_DIR:-${NAS_ROOT}/mealprep}"
 PAUSE_FILE="${MEALPREP_PAUSE_FILE:-${NAS_MEALPREP_DIR}/.status/paused}"
 SYNC_REMINDERS="$ROOT/scripts/reminders_to_nas_shopping_sync.sh"
 SYNC_HA="$ROOT/scripts/sync_mealprep_to_ha.sh"

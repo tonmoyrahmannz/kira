@@ -949,7 +949,7 @@ _Tailscale status was unavailable during generation._
 
 1. **HA Core unavailable** — automation/control outage on the dedicated Wyse 5070 appliance.
 2. **Mac Mini NAS unavailable** — media + backup share access interrupted, but HA should remain online.
-3. **Tailscale subnet router (Mac Mini) offline** — remote access to LAN/HA interrupted while local HA control should still work.
+3. **Tailscale subnet router (HAOS thin client) offline** — remote access to LAN/HA interrupted. The Mac Mini no longer acts as a subnet router.
 4. **Neo blinds hub or local LAN issue** — cover state/control degradation.
 5. **Supervisor add-on failure** (MQTT/Matter/etc.) — integration-specific impact.
 
@@ -971,8 +971,8 @@ _Tailscale status was unavailable during generation._
 
 ### C) Tailscale remote path failure
 1. On this node: `tailscale status` and check health warnings.
-2. Verify Mac Mini peer is online and advertising route `192.168.50.0/24`.
-3. Restart Tailscale on affected node if needed.
+2. Verify HAOS thin client (`homeassistant` tailnet node) is online and advertising route `192.168.50.0/24`.
+3. Restart Tailscale add-on in HA (Settings → Apps → Tailscale → Restart) if needed.
 4. Fall back to local LAN access for emergency operations.
 
 ### D) Blinds state desync

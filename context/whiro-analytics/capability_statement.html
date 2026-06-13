@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whiro Analytics — Capability Statement</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    color: #1B2A4A;
+    background: #fff;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 18mm 20mm 16mm 20mm;
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    border-bottom: 3px solid #0D9488;
+    padding-bottom: 3mm;
+    margin-bottom: 4.5mm;
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+  }
+
+  .header-logo {
+    flex-shrink: 0;
+    height: 21mm;
+    width: auto;
+  }
+
+  .header-text {
+    flex: 1;
+    text-align: right;
+  }
+
+  .header-text .tagline {
+    font-size: 7.5pt;
+    color: #0D9488;
+    font-weight: 600;
+  }
+
+  .header-text .contact-line {
+    font-size: 6.5pt;
+    color: #5B6B7F;
+    margin-top: 1mm;
+  }
+
+  /* ── SECTIONS ── */
+  .section-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #0D9488;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2.5mm;
+  }
+
+  .section {
+    margin-bottom: 5mm;
+  }
+
+  .section p, .section li {
+    font-size: 8.5pt;
+    color: #2D3B4F;
+  }
+
+  /* ── WHO WE ARE ── */
+  .who-text {
+    font-size: 9pt;
+    line-height: 1.55;
+  }
+
+  /* ── SERVICES GRID ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3mm 5mm;
+  }
+
+  .service-card {
+    background: #F8FAFC;
+    border-left: 3px solid #0D9488;
+    padding: 2.5mm 3mm;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .service-card h3 {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #1B2A4A;
+  }
+
+  .service-card .price {
+    font-size: 7.5pt;
+    color: #0D9488;
+    font-weight: 600;
+    margin-bottom: 1.5mm;
+  }
+
+  .service-card p {
+    font-size: 8pt;
+    line-height: 1.45;
+    color: #4A5A6F;
+  }
+
+  /* ── APPROACH ── */
+  .approach-steps {
+    display: flex;
+    gap: 3mm;
+  }
+
+  .approach-step {
+    flex: 1;
+    text-align: center;
+    border-top: 2px solid #0D9488;
+    padding-top: 1.5mm;
+  }
+
+  .approach-step .num {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #0D9488;
+  }
+
+  .approach-step .label {
+    font-size: 8pt;
+    font-weight: 600;
+    color: #1B2A4A;
+  }
+
+  .approach-step .desc {
+    font-size: 7.5pt;
+    color: #5B6B7F;
+    margin-top: 0.5mm;
+  }
+
+  /* ── WHY + EXP ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+  }
+
+  .why-list {
+    list-style: none;
+  }
+
+  .why-list li {
+    font-size: 8pt;
+    padding: 1mm 0 1mm 4mm;
+    position: relative;
+  }
+
+  .why-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #0D9488;
+    font-weight: 700;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm;
+    margin-top: 1mm;
+  }
+
+  .exp-tag {
+    background: #E8F5F3;
+    color: #0D766B;
+    font-size: 7.5pt;
+    font-weight: 600;
+    padding: 1mm 2.5mm;
+    border-radius: 3px;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    margin-top: auto;
+    padding-top: 4mm;
+  }
+
+  .contact-divider {
+    height: 2px;
+    background: linear-gradient(to right, #0D9488 60px, #E2E8F0 60px);
+    margin-bottom: 4mm;
+  }
+
+  .contact-block {
+    background: #1B2A4A;
+    color: #fff;
+    padding: 4mm 5mm;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-block .name {
+    font-size: 9.5pt;
+    font-weight: 700;
+  }
+
+  .contact-block .role {
+    font-size: 7.5pt;
+    color: #8FACC8;
+    margin-top: 0.5mm;
+  }
+
+  .contact-block .email {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #0D9488;
+  }
+
+  .footer-legal {
+    text-align: center;
+    font-size: 6.5pt;
+    color: #8FACC8;
+    margin-top: 3mm;
+    padding-top: 2mm;
+    border-top: 1px solid #E2E8F0;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: none; }
+    .page { padding: 12mm 15mm 10mm 15mm; }
+    .service-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <div class="header">
+      <img class="header-logo" src="whiro-logo.svg" alt="Whiro Analytics">
+      <div class="header-text">
+        <div class="tagline">Modern reporting, data platforms, and analytics strategy for NZ organisations.</div>
+        <div class="contact-line">contact@whiroanalytics.co.nz &nbsp;·&nbsp; Wellington, New Zealand</div>
+      </div>
+    </div>
+
+    <!-- WHO WE ARE -->
+    <div class="section">
+      <div class="section-title">Who We Are</div>
+      <p class="who-text">Whiro Analytics is a specialist Microsoft data and analytics consultancy. We help New Zealand organisations move from slow, manual, fragmented reporting to trusted, governed, and scalable analytics. We're independent — no software reselling, no vendor lock-in. Just practical architecture and delivery expertise.</p>
+    </div>
+
+    <!-- CORE SERVICES -->
+    <div class="section">
+      <div class="section-title">Core Services</div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Reporting Build &amp; Modernisation Sprint</h3>
+          <div class="price">2–6 weeks · $6k–$25k fixed fee</div>
+          <p>Build a new Power BI reporting solution or modernise an existing painful report. We turn business questions into a reliable, performant, maintainable analytics pipeline with clear measures, clean modelling, and practical documentation.</p>
+        </div>
+        <div class="service-card">
+          <h3>Power BI Health Check</h3>
+          <div class="price">1–2 weeks · $3k–$10k fixed fee</div>
+          <p>Review of your Power BI environment to identify performance issues, governance gaps, and quick wins. Outcome: findings report and actionable roadmap.</p>
+        </div>
+        <div class="service-card">
+          <h3>Fabric Readiness Assessment</h3>
+          <div class="price">2–4 weeks · $7.5k–$20k fixed fee</div>
+          <p>Strategic assessment of whether, when, and how to adopt Microsoft Fabric. Outcome: readiness report, target architecture, and implementation roadmap.</p>
+        </div>
+        <div class="service-card">
+          <h3>Fractional Data Architect</h3>
+          <div class="price">Ongoing · from $2k/month retainer</div>
+          <p>Senior data leadership without a full-time hire. Architecture guidance, governance, delivery oversight, and hands-on support as needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPROACH -->
+    <div class="section">
+      <div class="section-title">Our Approach</div>
+      <div class="approach-steps">
+        <div class="approach-step">
+          <div class="num">01</div>
+          <div class="label">Assess</div>
+          <div class="desc">Understand your current state honestly</div>
+        </div>
+        <div class="approach-step">
+          <div class="num">02</div>
+          <div class="label">Plan</div>
+          <div class="desc">Build a practical, phased roadmap</div>
+        </div>
+        <div class="approach-step">
+          <div class="num">03</div>
+          <div class="label">Deliver</div>
+          <div class="desc">Hands-on modernisation, clean docs</div>
+        </div>
+        <div class="approach-step">
+          <div class="num">04</div>
+          <div class="label">Support</div>
+          <div class="desc">Ongoing advisory or fractional engagement</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHY + EXPERIENCE -->
+    <div class="section">
+      <div class="two-col">
+        <div>
+          <div class="section-title">Why Whiro Analytics</div>
+          <ul class="why-list">
+            <li>Deep Microsoft data platform expertise &mdash; Fabric, Power BI, Azure, SQL</li>
+            <li>Independent advice &mdash; no vendor pressure, no licence quotas</li>
+            <li>Practical outputs, not long theoretical reports</li>
+            <li>Experience across New Zealand enterprise environments</li>
+            <li>Works alongside internal teams &mdash; we don't replace, we strengthen</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-title">Representative Experience</div>
+          <p style="font-size:8pt;color:#4A5A6F;">Data Architecture &middot; Microsoft Fabric &middot; Power BI &middot; Data Engineering &middot; Analytics Strategy &middot; SQL &middot; Azure &middot; Governance</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Data Architecture</span>
+            <span class="exp-tag">Microsoft Fabric</span>
+            <span class="exp-tag">Power BI</span>
+            <span class="exp-tag">Data Engineering</span>
+            <span class="exp-tag">Analytics Strategy</span>
+            <span class="exp-tag">SQL</span>
+            <span class="exp-tag">Azure</span>
+            <span class="exp-tag">Governance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+      <div class="contact-divider"></div>
+      <div class="contact-block">
+        <div>
+          <div class="name">Tonmoy Rahman</div>
+          <div class="role">Director, Data &amp; Analytics</div>
+        </div>
+        <div class="email">tonmoy@whiroanalytics.co.nz</div>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      Whiro Analytics is a trading name of WHIRO IT LIMITED &nbsp;·&nbsp; NZBN: 9429042503866
+    </div>
+  </div>
+</body>
+</html>

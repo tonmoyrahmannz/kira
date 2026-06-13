@@ -15,9 +15,9 @@ Why this approach:
 - Supports robust token refresh/signing in backend.
 
 Key paths (staged in Kira workspace):
-- `ha_config_staging/config/custom_components/tuya_ir_remote/`
-- `ha_config_staging/config/packages/tuya_ir_remote.yaml`
-- `ha_config_staging/config/ui/garage_ir_remote.yaml`
+- `ha-config-staging/config/custom_components/tuya_ir_remote/`
+- `ha-config-staging/config/packages/tuya_ir_remote.yaml`
+- `ha-config-staging/config/ui/garage_ir_remote.yaml`
 
 ## 2) Authentication & Token Handling
 

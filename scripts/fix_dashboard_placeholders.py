@@ -2,7 +2,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
-p = BASE_DIR / 'ha_config_staging' / 'config' / 'ui' / 'rahmans_command_centre.yaml'
+p = BASE_DIR / 'ha-config-staging' / 'config' / 'ui' / 'rahmans_command_centre.yaml'
 text = p.read_text()
 
 repls = [

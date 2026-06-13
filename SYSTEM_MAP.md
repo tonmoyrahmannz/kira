@@ -1,7 +1,7 @@
 # SYSTEM_MAP.md (Bootstrap Summary)
 
-Last verified: 2026-05-16
-Last updated: 2026-05-16
+Last verified: 2026-06-13
+Last updated: 2026-06-13
 Updated by: Kira
 Verification source: live host check, AGENTS.md, BOOT.md, docs/session_state.md, smart-home docs, runbooks
 
@@ -22,8 +22,11 @@ Canonical detailed architecture remains in `docs/system-map.md` and smart-home d
   - Kira runtime
   - Plex host
   - NAS host
-  - Tailscale subnet router
   - Other auxiliary services
+  - ~~Tailscale subnet router~~ (moved to HAOS thin client 2026-06-13)
+- **Tailscale subnet router**: HAOS thin client (`homeassistant.taila9375b.ts.net`, `100.90.241.109`)
+  - Official add-on, route: `192.168.50.0/24`
+  - Mac Mini no longer advertises subnets
 - Omarchy laptop `192.168.50.28`
   - Legacy/secondary Linux node
   - Historical source of some runbooks, dashboards, and telemetry scripts

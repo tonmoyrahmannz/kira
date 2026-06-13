@@ -1,11 +1,11 @@
 # MealPrep Flow Reference
 
 ## Canonical paths
-- Workspace root: `~/kira` by convention; wrapper script can derive this dynamically
-- MealPrep NAS folder default: `~/nas/Documents/MealPrep`
-- Reminders→NAS script: `~/kira/scripts/reminders_to_nas_shopping_sync.sh`
-- NAS→HA script: `~/kira/scripts/sync_mealprep_to_ha.sh`
-- Reminders status JSON default: `~/nas/Documents/MealPrep/.status/reminders_import_status.json`
+- Workspace root: `~/Kira` by convention; wrapper script can derive this dynamically
+- MealPrep data folder default: `~/Kira/mealprep`
+- Reminders→NAS script: `~/Kira/scripts/reminders_to_nas_shopping_sync.sh`
+- NAS→HA script: `~/Kira/scripts/sync_mealprep_to_ha.sh`
+- Reminders status JSON default: `~/Kira/mealprep/.status/reminders_import_status.json`
 
 ## Supported overrides
 - `ROOT`
@@ -34,5 +34,5 @@
 
 ## Fast failure checks
 1. `failed_no_bridge` in status JSON → local `osascript` unavailable and no valid `REMINDERS_BRIDGE_SSH`/test input supplied.
-2. NAS path missing/unmounted → check `~/nas/Documents/MealPrep` or your overridden MealPrep path.
+2. Data path missing → check `~/Kira/mealprep` or your overridden MealPrep path.
 3. HA sync fails → run `sync_mealprep_to_ha.sh` directly and inspect the first actionable error line.

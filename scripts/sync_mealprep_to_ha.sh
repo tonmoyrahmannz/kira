@@ -3,13 +3,13 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="${WORKSPACE_ROOT:-$(cd -- "$SCRIPT_DIR/.." && pwd)}"
-NAS_ROOT="${NAS_ROOT:-${HOME}/nas}"
+NAS_ROOT="${NAS_ROOT:-${HOME}/Kira}"
+
+SRC_BASE="${SRC_BASE:-${NAS_ROOT}/mealprep}"
+HA_KEY="${HA_KEY:-${HOME}/.ssh/id_ed25519_kira_ha}"
 HA_HOST="${HA_HOST:-192.168.50.166}"
 HA_PORT="${HA_PORT:-22}"
 HA_USER="${HA_USER:-root}"
-HA_KEY="${HA_KEY:-${HOME}/.ssh/id_ed25519_kira_ha}"
-
-SRC_BASE="${SRC_BASE:-${NAS_ROOT}/Documents/MealPrep}"
 SRC_PLAN="$SRC_BASE/Meal_Plan.md"
 SRC_SHOPPING="$SRC_BASE/Shopping_List.md"
 SRC_RECIPES="$SRC_BASE/Recipes"
@@ -37,12 +37,12 @@ need_cmd python3
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
-mkdir -p "$TMP_DIR/mealprep/Recipes"
+mkdir -p "$TMP_DIR/mealprep/recipes"
 cp "$SRC_PLAN" "$TMP_DIR/mealprep/Meal_Plan.md"
 cp "$SRC_SHOPPING" "$TMP_DIR/mealprep/Shopping_List.md"
-find "$SRC_RECIPES" -maxdepth 1 -type f -name '*.md' -exec cp {} "$TMP_DIR/mealprep/Recipes/" \;
+find "$SRC_RECIPES" -maxdepth 1 -type f -name '*.md' -exec cp {} "$TMP_DIR/mealprep/recipes/" \;
 
-if ! find "$TMP_DIR/mealprep/Recipes" -maxdepth 1 -type f -name '*.md' | grep -q .; then
+if ! find "$TMP_DIR/mealprep/recipes" -maxdepth 1 -type f -name '*.md' | grep -q .; then
   echo "No recipe markdown files found in source: $SRC_RECIPES" >&2
   exit 1
 fi

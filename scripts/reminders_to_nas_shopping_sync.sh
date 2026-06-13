@@ -5,8 +5,8 @@ set -euo pipefail
 # Canonical source remains NAS markdown; this only appends missing items under NEED TO BUY.
 
 LIST_NAME="${REMINDERS_LIST_NAME:-Family Shopping}"
-NAS_ROOT="${NAS_ROOT:-${HOME}/nas}"
-NAS_MEALPREP_DIR="${NAS_MEALPREP_DIR:-${NAS_ROOT}/Documents/MealPrep}"
+NAS_ROOT="${NAS_ROOT:-${HOME}/Kira}"
+NAS_MEALPREP_DIR="${NAS_MEALPREP_DIR:-${NAS_ROOT}/mealprep}"
 NAS_FILE="${NAS_SHOPPING_FILE:-${NAS_MEALPREP_DIR}/Shopping_List.md}"
 BACKUP_DIR="${NAS_SHOPPING_BACKUP_DIR:-${NAS_MEALPREP_DIR}/.backups}"
 STATUS_JSON="${NAS_REMINDERS_STATUS_JSON:-${NAS_MEALPREP_DIR}/.status/reminders_import_status.json}"

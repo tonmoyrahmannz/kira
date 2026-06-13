@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Lecturer Profile — Tonmoy Rahman</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1a1a2e;
+    background: #f4f4f8;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 210mm;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1B2A4A 0%, #243b5e 100%);
+    color: #ffffff;
+    padding: 40px 44px 32px 44px;
+  }
+
+  .header h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+
+  .header .subtitle {
+    font-size: 11pt;
+    font-weight: 400;
+    color: #cbd5e1;
+    margin-bottom: 14px;
+    line-height: 1.4;
+  }
+
+  .header .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+    font-size: 9pt;
+    color: #94a3b8;
+  }
+
+  .header .contact-row a {
+    color: #7dd3fc;
+    text-decoration: none;
+  }
+
+  .header .contact-row a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── BODY ── */
+  .body {
+    padding: 32px 44px 40px 44px;
+  }
+
+  /* ── SECTION HEADINGS ── */
+  .section-heading {
+    font-size: 10.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #1B2A4A;
+    border-bottom: 2px solid #1B2A4A;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    margin-top: 22px;
+  }
+
+  .section-heading:first-of-type {
+    margin-top: 0;
+  }
+
+  /* ── BODY TEXT ── */
+  p {
+    margin-bottom: 10px;
+  }
+
+  /* ── TWO-COLUMN LIST ── */
+  .two-col {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    list-style: none;
+    margin: 4px 0 8px 0;
+  }
+
+  .two-col li {
+    width: 50%;
+    padding: 2px 0 2px 18px;
+    position: relative;
+    font-size: 9.5pt;
+  }
+
+  .two-col li::before {
+    content: "—";
+    position: absolute;
+    left: 2px;
+    color: #0D9488;
+  }
+
+  /* ── TOPIC LIST ── */
+  .topic-list {
+    list-style: none;
+    margin: 4px 0 8px 0;
+  }
+
+  .topic-list li {
+    padding: 3px 0 3px 22px;
+    position: relative;
+    font-size: 9.5pt;
+  }
+
+  .topic-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 2px;
+    color: #0D9488;
+    font-weight: 700;
+  }
+
+  /* ── INLINE TAG ── */
+  .tag {
+    display: inline-block;
+    background: #eef2f6;
+    border-radius: 3px;
+    padding: 0 6px;
+    font-size: 9pt;
+    color: #1B2A4A;
+  }
+
+  .tag-alt {
+    background: #e8f4f0;
+    color: #0D9488;
+    font-weight: 600;
+  }
+
+  /* ── SIGNOFF ── */
+  .signoff {
+    margin-top: 26px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 8.5pt;
+    color: #64748b;
+    text-align: center;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: none; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+    .header { border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <h1>Tonmoy Rahman</h1>
+    <div class="subtitle">Data Architect &nbsp;|&nbsp; Microsoft Fabric, Power BI &amp; Analytics Specialist &nbsp;|&nbsp; Founder, Whiro Analytics</div>
+    <div class="subtitle" style="font-size:9.5pt; color:#94a3b8; margin-top:6px;">Victoria University of Wellington &nbsp;·&nbsp; Grant Thornton New Zealand</div>
+    <div class="contact-row">
+      <span>Wellington, New Zealand</span>
+      <a href="https://www.linkedin.com/in/tonmoyrahman">linkedin.com/in/tonmoyrahman</a>
+      <a href="mailto:tonmoy.rahman@gmail.com">tonmoy.rahman@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- ═══ BODY ═══ -->
+  <div class="body">
+
+    <!-- ── Professional Bio ── -->
+    <div class="section-heading">Professional Bio</div>
+    <p>
+      Tonmoy Rahman is a data and analytics professional with over a decade of experience
+      across data engineering, business intelligence, database platforms, cloud data architecture,
+      and enterprise reporting. He has held senior roles in financial services, consulting,
+      insurance, banking, and large enterprise environments.
+    </p>
+    <p>
+      His technical expertise spans <strong>Microsoft Fabric</strong>, <strong>Power BI</strong>,
+      <strong>Azure</strong>, <strong>SQL Server</strong>, <strong>Dynamics 365 / CRM</strong>,
+      ERP-related data integration, automation, and AI-enabled analytics. He combines deep
+      platform knowledge with a practical understanding of how data flows from source systems
+      through to decision-ready reporting.
+    </p>
+
+    <!-- ── Relevance to Accounting / Business Courses ── -->
+    <div class="section-heading">Relevance to Accounting &amp; Business Courses</div>
+    <p>
+      Today's accounting and business graduates enter a workplace where data literacy is as
+      fundamental as technical accounting knowledge. Reporting tools, ERP systems, CRM platforms,
+      and AI-assisted analytics are now part of everyday financial and management reporting.
+    </p>
+    <p>
+      Tonmoy's guest lectures bridge this gap by showing students how practitioners use tools
+      such as <strong>Excel</strong>, <strong>Power BI</strong>, <strong>ERP/CRM systems</strong>,
+      and <strong>AI</strong> to answer real accounting and business questions&nbsp;—&nbsp;identifying
+      trends and patterns, improving decision-making, and communicating insights effectively to
+      stakeholders. Rather than a theoretical overview, students see a practitioner's workflow
+      from raw data to actionable insight.
+    </p>
+
+    <!-- ── Suggested Guest Lecture Topics ── -->
+    <div class="section-heading">Suggested Guest Lecture Topics</div>
+    <ul class="topic-list">
+      <li>Using Excel and Power BI to answer accounting and business questions</li>
+      <li>Turning ERP / CRM data into management insights</li>
+      <li>From raw data to dashboard: a practical analytics workflow</li>
+      <li>How AI supports accounting analysis, reporting, and decision-making</li>
+      <li>Data quality, governance, and trust in business reporting</li>
+      <li>Real-world use of Microsoft Fabric, Power BI, and SQL in enterprise analytics</li>
+    </ul>
+
+    <!-- ── Relevant Expertise ── -->
+    <div class="section-heading">Relevant Expertise</div>
+    <ul class="two-col">
+      <li>Microsoft Fabric, Power BI, Azure, SQL Server</li>
+      <li>Data modelling and dashboard development</li>
+      <li>Reporting automation and data pipelines</li>
+      <li>Analytics architecture design</li>
+      <li>Dynamics 365 / CRM and ERP-style data integration</li>
+      <li>Governance, data quality, and business reporting</li>
+      <li>Practical use of AI in analytics workflows</li>
+      <li>End-to-end analytics solution delivery</li>
+    </ul>
+
+    <!-- ── Professional Experience Summary ── -->
+    <div class="section-heading">Professional Experience Summary</div>
+    <p>
+      Tonmoy is currently a <strong>Data Architect</strong> at
+      <strong>Victoria University of Wellington</strong>, where he is leading
+      data platform and analytics initiatives, and a <strong>Senior Data Engineer /
+      Data Platform Owner</strong> at <strong>Grant Thornton New Zealand</strong>,
+      where he drives the firm's internal data platform strategy and enterprise
+      reporting infrastructure. His previous experience includes data and analytics
+      roles at <strong>Westpac</strong>, <strong>BNZ</strong>, <strong>IBM</strong>,
+      <strong>Cigna</strong>, <strong>Datacom</strong>, and <strong>Spark</strong>&nbsp;—&nbsp;
+      spanning financial services, insurance, telecommunications, and consulting.
+    </p>
+    <p>
+      Across these organisations he has delivered data platforms, reporting solutions, and
+      analytics capabilities that directly supported finance, risk, and operational business
+      functions.
+    </p>
+
+    <!-- ── Education & Certifications ── -->
+    <div class="section-heading">Education &amp; Certifications</div>
+    <ul class="two-col">
+      <li>Bachelor of Business Information Systems, Victoria University of Wellington</li>
+      <li>Microsoft Certified: Azure Data Fundamentals</li>
+      <li>Microsoft Certified: Azure Fundamentals</li>
+      <li>Microsoft Certified Professional</li>
+    </ul>
+
+    <div class="signoff">
+      Guest Lecturer Profile — Tonmoy Rahman &nbsp;·&nbsp; Prepared for academic coordination purposes
+    </div>
+
+  </div><!-- /body -->
+
+</div><!-- /page -->
+
+</body>
+</html>
