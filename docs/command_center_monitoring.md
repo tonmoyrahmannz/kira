@@ -5,7 +5,7 @@
 This README documents the first phase of building a **Home Infrastructure Command Centre** inside Home Assistant.  
 The goal is to create a **single operational dashboard** that shows the health of all core systems in Rahman's home lab environment.
 
-This work was performed with the help of **Kira (OpenClaw automation agent)** which modified Home Assistant configuration and dashboards.
+This work was performed with the help of **Kira (automation agent)** which modified Home Assistant configuration and dashboards.
 
 ---
 
@@ -14,7 +14,7 @@ This work was performed with the help of **Kira (OpenClaw automation agent)** wh
 The monitoring architecture follows a **Machine Layer → Service Layer** model.
 
 Omarchy Laptop
-- OpenClaw Gateway (Kira)
+- OpenClaw Gateway (Kira) — retired 2026-06-13, migrated to Hermes
 - Automation scripts
 - Telemetry script
 
@@ -102,10 +102,10 @@ Metrics retrieved via SSH polling from Home Assistant.
 
 # Kira Gateway Monitoring
 
-Kira Gateway is implemented as the **OpenClaw service running on Omarchy**.
+Kira Gateway is implemented as the **Hermes Agent running on the Mac Mini**.
 
 Systemd service detected:
-openclaw-gateway.service
+hermes-gateway.service
 
 Sensors:
 
@@ -139,7 +139,7 @@ Provides:
 - Memory usage
 - Disk usage
 - Tailscale connectivity
-- OpenClaw process state
+- Kira/Hermes process state
 - PID
 - Memory usage
 - Heartbeat timestamp
@@ -160,7 +160,7 @@ Placeholder entities were replaced with **live telemetry sensors**.
 
 Example commit:
 
-491a26c – Wire Omarchy and OpenClaw core telemetry to live sensors
+491a26c – Wire Omarchy and Kira/Hermes core telemetry to live sensors
 
 ---
 
@@ -169,7 +169,7 @@ Example commit:
 The dashboard now provides:
 
 • Infrastructure health monitoring  
-• OpenClaw service visibility  
+- Kira/Hermes service visibility  
 • Remote system metrics for Omarchy  
 • NAS storage visibility  
 • Mac Mini resource monitoring  
@@ -184,7 +184,7 @@ This forms the **Core Systems monitoring layer**.
 
 Create a top status bar showing:
 
-HA | MacMini | NAS | Omarchy | OpenClaw | Internet
+HA | MacMini | NAS | Omarchy | Hermes | Internet
 
 with green / amber / red indicators.
 
@@ -210,7 +210,7 @@ Router
 │
 MacMini → Home Assistant  
 NAS  
-Omarchy → OpenClaw  
+Omarchy → Hermes  
 
 ---
 

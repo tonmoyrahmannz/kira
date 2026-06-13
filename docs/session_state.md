@@ -1,23 +1,23 @@
 # Session State (Durable Resume)
 
-Updated: 2026-05-16 (Pacific/Auckland)
+Updated: 2026-06-13 (Pacific/Auckland)
 
 ## Current Objective
-Keep Kira persistence stable on the Mac Mini, finish cleanup of stale Omarchy-era assumptions, and track post-migration Home Assistant validation on the Wyse 5070 host while preserving reliable NAS-backed backups.
+Keep Kira persistence stable on the Mac Mini. OpenClaw fully migrated to Hermes; all OpenClaw docs/refs cleaned up.
 
 ## Last Completed
-- 2026-05-16: Verified the active Kira/OpenClaw Telegram session is running on the Mac Mini (`Macmini`, macOS 26.3, workspace `/Users/tonmoyrahman/Kira`) and replaced stale Omarchy-primary assumptions in durable docs.
+- 2026-06-13: Full Kira workspace consolidation — NAS content merged, directories standardised, pushed to GitHub.
+- 2026-06-13: Tailscale subnet router moved from Mac Mini to HAOS thin client.
+- 2026-05-16: Verified the active Kira/Hermes Telegram session is running on the Mac Mini (`Macmini`, macOS 26.3, workspace `/Users/tonmoyrahman/Kira`) and replaced stale Omarchy-primary assumptions in durable docs.
 - 2026-05-16: Recreated the missing Home Assistant Supervisor SMB backup mount `plex_hd_backups_homeassistant` after the Wyse 5070 HAOS migration. It now points to `192.168.50.208` share `Plex_HD/Backups/HomeAssistant`, is `active`, and is set as the default backup mount again.
 - 2026-05-15: Updated Kira topology, scripts, runbooks, and staging dashboards for the Home Assistant move to a Wyse 5070 bare-metal appliance at `192.168.50.166`.
 - 2026-03-16: Finalized Rahman Command Centre dashboards (God's Eye + TEST_NOC_2) with correct topology hierarchy and health pulse logic.
 - Confirmed direct SCP file transfer path into Home Assistant `/config`, expanding our ability to patch HA automations/scripts from this workspace.
 
 ## Next Actions
-- Finish Mac Mini migration verification by checking any remaining live HA automations/dashboards that still assume Omarchy as the primary Kira host.
-- Re-validate core integrations on the migrated system: Tuya, Zigbee, Gree HVAC, Neo Blinds, Tailscale API monitoring, NOC dashboards, and SSH automations.
+- Re-validate core integrations: Tuya, Zigbee, Gree HVAC, Neo Blinds, Tailscale API monitoring, NOC dashboards, and SSH automations.
 - Re-run IR validation matrix for soundbar/projector scripts after restore/migration changes.
 - Optionally run a fresh manual backup to the restored `plex_hd_backups_homeassistant` location from the HA UI as a user-visible confirmation.
-- Optional hardening: `chmod 700 ~/.openclaw/credentials`.
 
 # Active Tasks
 
@@ -51,11 +51,9 @@ Keep Kira persistence stable on the Mac Mini, finish cleanup of stale Omarchy-er
 - Added durable session continuity snapshot (`docs/session_state.md`).
 - Added startup checklist (`BOOT.md`) and resume helper script (`scripts/kira-resume.sh`).
 - Documented full persistence setup (`docs/kira/Kira_Control_Plane_Handover.md`).
-- Updated OpenClaw config bootstrap limits for larger persistent context.
+- Updated Hermes/AGENTS.md bootstrap sequence for persistent context.
 - Added daily persistence maintenance cron reminder (`07:15 Pacific/Auckland`).
 
 # Backlog
 
-- Optional security hardening: tighten OpenClaw credential dir permissions (`chmod 700 ~/.openclaw/credentials`).
 - Add automated periodic compaction of session state summaries into `docs/session_state.md` (optional).
-- Consider OpenClaw hook-based bootstrap injection customization if needed later.

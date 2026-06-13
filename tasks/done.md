@@ -5,7 +5,8 @@
 - 2026-05-17: Created Home Assistant dashboard copy `AC and Blinds - No Expander` (`ac-blinds-no-expander`) from `AC and Blinds` with all `custom:expander-card` wrappers removed from the copy only.
 - 2026-05-16: Updated canonical NAS documentation `/Volumes/Plex_HD/Backups/HomeAssistant/Smart_Home_Technical_Documentation_v5_Professional.md` to reflect the Mac Mini/Wyse/Omarchy post-migration operating model.
 - 2026-05-16: Paused MealPrep via NAS pause marker and wrapper guard, cleared 38 reminders from `Family Shopping`, and fixed `~/nas` to point at `/Volumes/Plex_HD`.
-- 2026-05-16: Verified active Kira/OpenClaw runtime is on the Mac Mini, updated durable source-of-truth docs away from Omarchy-primary assumptions, repointed the workspace `nas` symlink to `/Volumes/Plex_HD`, and regenerated the smart-home runbook with the Mac Mini NAS path.
+- 2026-06-13: All OpenClaw references cleaned from workspace docs (MEMORY.md, USER.md, TOOLS.md, session_state, tasks).
+- 2026-05-16: Verified active Kira/Hermes runtime on Mac Mini, updated durable source-of-truth docs away from Omarchy-primary assumptions, repointed the workspace `nas` symlink to `/Volumes/Plex_HD`, and regenerated the smart-home runbook with the Mac Mini NAS path.
 - 2026-04-14: Daily persistence maintenance — no activity change. Tuya IR task stalled at 29 days, still awaiting valid Tuya IoT credentials.
 - 2026-04-13: Daily persistence maintenance — no activity change. Tuya IR task stalled at 28 days, still awaiting valid Tuya IoT credentials.
 - 2026-04-12: Daily persistence maintenance — no activity change. Tuya IR task stalled at 27 days, still awaiting valid Tuya IoT credentials.

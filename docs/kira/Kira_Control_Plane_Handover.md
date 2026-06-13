@@ -27,7 +27,7 @@ Design goal:
 ```
 Telegram
    ↓
-OpenClaw Gateway (Kira)
+Hermes Agent (Kira) Gateway
    ↓
 Local Exec Tool
    ↓
@@ -40,7 +40,7 @@ Principles:
 
 - AI should not run arbitrary commands
 - All meaningful actions flow through `action_runner.sh`
-- Execution restricted by OpenClaw exec allowlist
+- Execution restricted by Hermes exec allowlist
 - Elevated actions require predefined scripts
 
 ---
@@ -59,10 +59,10 @@ Workspace:
 
 Legacy note: Kira originally ran on the Omarchy Linux laptop at `/home/tonmoy/kira`. Omarchy references below are historical unless marked as an active Linux-node integration.
 
-OpenClaw config:
+Hermes config:
 
 ```
-~/.openclaw/openclaw.json
+~/.hermes/config.yaml
 ```
 
 Gateway port:
@@ -73,12 +73,12 @@ Gateway port:
 
 ---
 
-# 4. OpenClaw Configuration
+# 4. Hermes Agent Configuration
 
 File:
 
 ```
-~/.openclaw/openclaw.json
+~/.hermes/config.yaml
 ```
 
 Important settings:
@@ -112,7 +112,7 @@ Purpose:
 File:
 
 ```
-~/.openclaw/exec-approvals.json
+~/.hermes/exec-approvals.json
 ```
 
 Key configuration:
@@ -359,7 +359,7 @@ Telegram Bot
 Flow:
 
 ```
-User → Telegram → OpenClaw → Kira → Action System
+User → Telegram → Hermes → Kira → Action System
 ```
 
 ---
@@ -369,7 +369,7 @@ User → Telegram → OpenClaw → Kira → Action System
 Secrets that must be rotated after setup:
 
 - Telegram bot token
-- OpenClaw gateway auth token
+- Hermes gateway auth token
 
 ---
 
@@ -388,19 +388,19 @@ Core rule:
 Check gateway:
 
 ```
-openclaw gateway status
+hermes gateway status
 ```
 
 Verify approvals:
 
 ```
-openclaw approvals get --gateway
+hermes approvals get --gateway
 ```
 
 Restart gateway:
 
 ```
-openclaw gateway restart
+hermes gateway restart
 ```
 
 ---
@@ -413,7 +413,7 @@ Current milestone:
 
 Working components:
 
-- OpenClaw gateway
+- Hermes gateway
 - Exec capability
 - Action runner
 - Exec allowlist

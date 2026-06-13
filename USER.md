@@ -44,11 +44,11 @@ Known architecture:
 - Router/gateway: `192.168.50.1` — ASUS network.
 - Wyse 5070: `192.168.50.166` — HAOS host / primary Home Assistant server.
 - Mac Mini: `192.168.50.208` — active Kira/Hermes runtime, Plex, NAS/SMB shares, Tailscale subnet routing, and auxiliary services.
-- Omarchy Laptop: `192.168.50.28` — previous Kira/OpenClaw host; historical role unless reactivated.
+- Omarchy Laptop: `192.168.50.28` — previous Kira/OpenClaw host (platform fully migrated to Hermes).
 - Gree Controller: `192.168.50.188` — HVAC / local encrypted Gree control.
 - Neo Controller: `192.168.50.224` — local Neo Smart Blinds controller.
 - Tuya Zigbee Gateway: `192.168.50.100` — Zigbee bridge; critical for many Zigbee devices.
-- Previously Kira ran on OpenClaw; platform has switched to Hermes.
+- Previously Kira ran on OpenClaw; fully migrated to Hermes Agent as of 2026-06-13. OpenClaw installation and config directories removed.
 
 Important integrations:
 

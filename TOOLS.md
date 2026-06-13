@@ -48,7 +48,7 @@ returns `SSH_OK`; `/config` maps to `/homeassistant`.
 
 - `192.168.50.166` — Wyse 5070 / HAOS / primary Home Assistant.
 - `192.168.50.208` — Mac Mini / active Kira-Hermes / Plex / NAS / Tailscale.
-- `192.168.50.28` — Omarchy laptop / previous Kira-OpenClaw host.
+- `192.168.50.28` — Omarchy laptop / previous Kira/OpenClaw host (migrated to Hermes 2026-06-13).
 - `192.168.50.1` — ASUS router/gateway.
 - `192.168.50.188` — Gree Controller.
 - `192.168.50.224` — Neo Controller.

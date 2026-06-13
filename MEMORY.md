@@ -9,19 +9,16 @@
   - Kian — born March 25th, 2026. 🎉
 - Prefers practical, implementation-first help and persistence that survives token/session resets.
 - Prefers auto-push to remote after successful coding/tasks (unless explicitly asked not to push).
-- Wants plain-English explanations for OpenClaw concepts (agent/session/context), especially while onboarding.
 - Interested in AI control systems, home automation, and robust operational setup.
 - For work/job-related tasks, professional profile updates, LinkedIn changes, and job advert tailoring, use the appropriate folder within `nas/Documents/Work/` as the default context/location.
 - Generate new CVs as HTML files by default under `nas/Documents/Work/`. Only create Markdown or PDF versions when explicitly requested.
 
 ## Active System Context (Kira)
 - Workspace: `/Users/tonmoyrahman/Kira` on the Mac Mini.
-- OpenClaw config path: `~/.openclaw/openclaw.json`.
+- Runtime: **Hermes Agent** — fully migrated from OpenClaw as of 2026-06-13.
 - Default configured model: `openai/gpt-5.4`; current main Telegram session observed on `openai/gpt-5.5`.
 - Kira runs as a controlled operations layer (action-runner pattern), not an unrestricted shell.
 - Documentation source of truth is `docs/README.md` plus `docs/kira/*`, `docs/system-map.md`, `docs/runbooks/*`.
-- 2026-05-16: Kira/OpenClaw main Telegram runtime verified on the Mac Mini (`Macmini`, macOS 26.3, Darwin arm64). Omarchy is no longer the primary Kira runtime, though historical docs/scripts may still mention it as a legacy Linux node.
-- 2026-05-16: OpenClaw LaunchAgent verified on macOS at `~/Library/LaunchAgents/ai.openclaw.gateway.plist`, running the Homebrew OpenClaw gateway on port `18789`. `~/.openclaw/openclaw.json` points agents at `/Users/tonmoyrahman/Kira`.
 
 ## Persistence Architecture (2026-03-08)
 - Implemented durable identity + recovery:
@@ -33,9 +30,6 @@
   - `scripts/kira-resume.sh`
   - `docs/kira/Kira_Persistence_Setup.md`
 - `AGENTS.md` startup sequence now requires reading the above recovery files each session.
-- OpenClaw bootstrap limits raised to reduce truncation risk:
-  - `agents.defaults.bootstrapMaxChars = 30000`
-  - `agents.defaults.bootstrapTotalMaxChars = 220000`
 
 ## Automation
 - Daily cron reminder added for persistence maintenance:
@@ -69,5 +63,4 @@ When context gets compacted or session resets, recovery should follow this durab
 - Recommended pattern: keep `main` as personal Kira and use additional specialist sessions/agents for isolated heavy work.
 
 ## Operational Notes
-- Optional hardening still pending: `chmod 700 ~/.openclaw/credentials`.
 - Telegram group allowlist policy may need explicit sender IDs if group messaging is desired.

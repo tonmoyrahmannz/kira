@@ -157,7 +157,7 @@ ssh -i "$HA_KEY" -p "$HA_PORT" "$HA_USER@$HA_HOST" "cat > /config/custom_compone
   \"domain\": \"mealprep_shopping_webhook\",
   \"name\": \"MealPrep Shopping Webhook\",
   \"version\": \"1.0.0\",
-  \"documentation\": \"https://docs.openclaw.ai\",
+  \"documentation\": \"https://hermes-agent.nousresearch.com/docs\",
   \"requirements\": [],
   \"codeowners\": [\"@tonmoy\"],
   \"iot_class\": \"local_push\"

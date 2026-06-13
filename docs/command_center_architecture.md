@@ -24,7 +24,7 @@ automation, alerts, and telemetry.
     -------------------------------------------------
     | Kira Gateway | Omarchy Laptop | Network |
     -------------------------------------------------
-    | Services: OpenClaw | Plex | MQTT | Zigbee |
+    | Services: Hermes | Plex | MQTT | Zigbee |
     -------------------------------------------------
 
 ------------------------------------------------------------------------
@@ -46,12 +46,12 @@ usage - System uptime - Temperature (optional)
 
 ### Kira Gateway
 
-Runs OpenClaw automation system.
+Runs Kira/Hermes automation system.
 
-Metrics: - OpenClaw process running - CPU usage - RAM usage - PID -
+Metrics: - Hermes process running - CPU usage - RAM usage - PID -
 Browser worker count - Last heartbeat
 
-Possible automations: - Alert if OpenClaw stops - Restart gateway
+Possible automations: - Alert if Kira/Hermes stops
 automatically - Telegram notification if offline
 
 ------------------------------------------------------------------------
@@ -65,7 +65,7 @@ usage (optional) - Tailscale connection state - SSH reachability
 
 # Service Layer
 
-Examples: - OpenClaw Gateway - Home Assistant Supervisor - Plex Media
+Examples: - Kira/Hermes Gateway - Home Assistant Supervisor - Plex Media
 Server - MQTT Broker - Zigbee Network - Tailscale VPN
 
 These cards monitor application-level health rather than system health.
@@ -104,7 +104,7 @@ Benefits: - scalable - easy to monitor - easy to automate alerts
 
 ## Step 2 -- Add Service Health Checks
 
-Monitor: - OpenClaw - Plex - MQTT - Zigbee - Tailscale
+Monitor: - Hermes - Plex - MQTT - Zigbee - Tailscale
 
 These can be built using: - command_line sensors - MQTT sensors - REST
 sensors
@@ -135,7 +135,7 @@ Advantages: - lightweight - scalable - real‑time updates
     Kira Gateway
 
     Status: Online
-    OpenClaw: Running
+    Hermes: Running
     CPU: 3%
     Memory: 800 MB
     Last Seen: 13:31
@@ -158,7 +158,7 @@ Advantages: - lightweight - scalable - real‑time updates
 
 ## Services
 
--   OpenClaw
+-   Hermes
 -   Plex
 -   MQTT
 -   Zigbee
@@ -198,9 +198,9 @@ diagrams - Custom HA dashboards
 
 # Potential Automation Examples
 
-### OpenClaw Failure Alert
+### Kira/Hermes Gateway Failure Alert
 
-If OpenClaw process stops:
+If Kira/Hermes process stops:
 
 -   Send Telegram alert
 -   Attempt automatic restart
@@ -252,7 +252,7 @@ control dashboard**.
 # Integration with Kira
 
 This document can also be used to generate automation prompts for
-Kira/OpenClaw to:
+Kira/Hermes to:
 
 -   deploy telemetry scripts
 -   publish system metrics

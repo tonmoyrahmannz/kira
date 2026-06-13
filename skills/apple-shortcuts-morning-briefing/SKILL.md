@@ -22,7 +22,7 @@ The macOS shortcuts CLI can run and list shortcuts, but does not create rich sho
 
 /Users/tonmoyrahman/Kira/scripts/morning-briefing-source-pull.sh
 
-Grant permissions to Shortcuts, Terminal, and the Node/OpenClaw host process when macOS prompts for Calendar, Reminders, Home folder, or network access.
+Grant permissions to Shortcuts, Terminal, and the Hermes host process when macOS prompts for Calendar, Reminders, Home folder, or network access.
 
 ## Safety
 
