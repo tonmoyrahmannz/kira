@@ -13,6 +13,7 @@ This file defines the required input model and workflow for generating weekly me
 3. `inventory/Pantry_Inventory.md`
 4. Existing recipe files under `Recipes/`
 5. Current `Meal_Plan.md` and `Shopping_List.md` (for continuity)
+6. If Tonmoy asks for health/weight-loss support, also read `config/Health_Goal_Rules.md`
 
 ## Input Model (Source of Truth)
 `config + inventory -> meal generator -> outputs`

@@ -10,13 +10,15 @@
 - Prefers practical, implementation-first help and persistence that survives token/session resets.
 - Prefers auto-push to remote after successful coding/tasks (unless explicitly asked not to push).
 - Interested in AI control systems, home automation, and robust operational setup.
+- 2026-06-14 self-reflection/profile themes to use as a helpful lens, not a diagnosis: strong internal locus of control, intellectual humility, long-term thinking, comfort with independent deep work, practical stoicism, curiosity plus execution. Core motivators appear to be mastery, autonomy, building useful things, being respected for expertise, and leaving systems better than he found them. Support should help him shift from “person doing the work” toward “person designing the system the work happens in,” while watching for over-responsibility, over-optimising too many domains at once, under-positioning, avoiding sales/visibility discomfort, and reading too much into silence. Useful mantra: “Build calmly. Choose carefully. Do the avoided work. Do not carry what is not yours.”
+- 2026-06-14 health reset goal: lose ~12 kg in ~4 months after gaining weight from less gym, more eating, and lower movement. Context: `context/personal/health-fitness-reset-2026.md`; tracker: `tasks/health-fitness-12kg-4months.md`; support skill: `health-fitness-coach`.
+- Whiro Analytics should now prioritise sales motion over more setup: build 10 warm contacts, send soft outreach/referral messages, aim for 2 discovery calls and 1 small paid Power BI Health Check. Lead tracking is in Microsoft Lists, not a markdown prospect tracker.
 - For work/job-related tasks, professional profile updates, LinkedIn changes, and job advert tailoring, use the appropriate folder within `nas/Documents/Work/` as the default context/location.
 - Generate new CVs as HTML files by default under `nas/Documents/Work/`. Only create Markdown or PDF versions when explicitly requested.
 
 ## Active System Context (Kira)
 - Workspace: `/Users/tonmoyrahman/Kira` on the Mac Mini.
 - Runtime: **Hermes Agent** — fully migrated from OpenClaw as of 2026-06-13.
-- Default configured model: `openai/gpt-5.4`; current main Telegram session observed on `openai/gpt-5.5`.
 - Kira runs as a controlled operations layer (action-runner pattern), not an unrestricted shell.
 - Documentation source of truth is `docs/README.md` plus `docs/kira/*`, `docs/system-map.md`, `docs/runbooks/*`.
 

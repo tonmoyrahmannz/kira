@@ -2,6 +2,10 @@
 
 Updated: 2026-06-13 (Pacific/Auckland)
 
+## Runtime Status
+- Observed 2026-06-13: default configured model was `openai/gpt-5.4`; main Telegram session was using `openai/gpt-5.5`.
+- Treat runtime/model details as volatile and re-verify before relying on them.
+
 ## Current Objective
 Keep Kira persistence stable on the Mac Mini. OpenClaw fully migrated to Hermes; all OpenClaw docs/refs cleaned up.
 

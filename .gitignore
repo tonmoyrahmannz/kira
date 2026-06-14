@@ -31,6 +31,13 @@ logs/
 # Local mounts / symlinks
 nas
 
+# Private Kira runtime/personal context (do not publish to the public repo)
+.hermes/
+context/personal/
+memory/
+state/
+tasks/
+
 # Editor & IDE
 .idea/
 .vscode/

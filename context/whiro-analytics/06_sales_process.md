@@ -120,7 +120,7 @@ Create a simple shared doc, spreadsheet, or WhatsApp thread for tracking:
 
 ## Notes for Kira
 
-- Keep a running partner log in the prospect tracker (07_prospect_tracker.md).
+- Keep partner/referral lead status in the Whiro Analytics Microsoft Lists lead tracker.
 - Send Tonmoy a reminder if a referred lead has been sitting in "Intro sent" for >2 weeks without follow-up.
 - The flat fee model keeps it simple — avoid percentage-only models for small deals.
 - If the partner starts bringing multiple leads, discuss moving to a retainer or higher percentage.

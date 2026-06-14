@@ -4,7 +4,8 @@
 
 - Name: Tonmoy Rahman.
 - Call him: Tonmoy, unless he says otherwise.
-- Default timezone/location: Wellington, New Zealand; use `Pacific/Auckland`.
+- Default timezone/location: Aotea, Porirua, Wellington, New Zealand; use `Pacific/Auckland`.
+- Origin: Bangladesh; has lived in New Zealand for many years.
 - Preferred style: practical, direct, concise-first, plain English.
 - He likes clear explanations but not unnecessary over-explaining.
 - He values agents that reason, verify, and act.
@@ -13,6 +14,35 @@
 - For large tasks, provide a short plan first, then execute.
 - Explain risks clearly before risky action.
 - Avoid polluting long-term memory with temporary details.
+
+## Self-understanding / motivational lens
+
+From the 2026-06-14 self-reflection PDF and the reusable AI context profile Tonmoy asked Kira to remember:
+
+- Treat this as a useful lens, not a diagnosis or fixed identity.
+- He is drawn to radical personal responsibility, intellectual humility, long-term thinking, independent deep work, and practical stoicism.
+- He tends to combine curiosity with execution: question assumptions, then build or test the answer.
+- Likely core motivators: mastery, autonomy, building useful things, respected expertise, and leaving systems better than he found them.
+- He may under-estimate his trajectory and still frame himself as the person doing the work, while his path increasingly points toward principal architect / head-of-data / consultancy-founder thinking.
+- Watch for over-responsibility, over-optimising too many life/work systems at once, under-positioning, avoiding sales/visibility discomfort, and reading too much into silence from prospects/recruiters.
+- Helpful agent behaviour: challenge assumptions respectfully, help convert long-term strategy into concrete systems, reduce operational drag, and push toward designing repeatable operating systems rather than only solving isolated tasks.
+- Useful mantra/lens: “Build calmly. Choose carefully. Do the avoided work. Do not carry what is not yours.”
+
+## Health and fitness direction
+
+As of 2026-06-14, Tonmoy wants to lose about 12 kg over roughly 4 months and rebuild physical and mental health after a period of less gym, more eating, and lower movement.
+
+Source files:
+
+- `context/personal/health-fitness-reset-2026.md`
+- `tasks/health-fitness-12kg-4months.md`
+
+Support style:
+
+- Treat health as a system: weekly reviews, simple defaults, meal-prep support, reminders, and measured adjustment.
+- Be direct and accountable but not shaming.
+- Focus on consistency, strength training, daily movement, high-protein/high-fibre meals, sleep, and mental reset habits.
+- Use `health-fitness-coach` skill for related requests.
 
 ## Core expectation
 
@@ -103,10 +133,11 @@ Default NAS mount on Linux:
 Important NAS areas:
 
 - `/home/tonmoy/nas/Documents/Work/`
-- `/home/tonmoy/nas/Documents/MealPrep/`
 - `/home/tonmoy/nas/Backups/HomeAssistant/`
 - `/home/tonmoy/nas/Backups/MacMini/`
 - Plex_HD / Media shares for movies, TV, music.
+
+**Note:** MealPrep source of truth moved to Mac Mini (see below).
 
 For work/job files, use `nas/Documents/Work/` by default.
 
@@ -178,16 +209,19 @@ Important dashboard areas:
 
 ## MealPrep automation
 
-MealPrep uses NAS Markdown files as source of truth.
+MealPrep source of truth is now on Mac Mini at `/Users/tonmoyrahman/Kira/mealprep/`. Older NAS paths under `/home/tonmoy/nas/Documents/MealPrep/` are historical only unless explicitly restored.
 
-Source:
+Current source:
 
-- `/home/tonmoy/nas/Documents/MealPrep/`
+- `/Users/tonmoyrahman/Kira/mealprep/`
 
-Important files may include:
+Important files:
 
 - `Meal_Plan.md`
 - `Shopping_List.md`
+- `inventory/` — ingredient tracking
+- `recipes/` — recipe database
+- `.status/` — automation status
 - `Recipes/`
 - `Household_Preferences.md`
 - `Pantry_Assumptions.md`
@@ -200,8 +234,9 @@ Home Assistant working copy:
 
 Desired pattern:
 
-- NAS is source of truth.
-- Sync NAS to HA.
+- Mac Mini path `/Users/tonmoyrahman/Kira/mealprep/` is the source of truth.
+- Older NAS paths under `Documents/MealPrep/` are historical unless explicitly restored.
+- Sync the Mac Mini source to HA.
 - Parse Markdown into JSON/sensors.
 - Show status in HA.
 - Support iCloud Reminders integration through Apple Shortcuts/webhooks.
@@ -214,7 +249,8 @@ Tonmoy works in data architecture, solution architecture, Microsoft Fabric, Powe
 
 Professional context:
 
-- Data Architect / Solution Architect profile.
+- Current role: Data Architect at Victoria University of Wellington / Te Herenga Waka, Digital Solutions / Te Tai Matihiko, focused on the Modern Data Platform programme.
+- Previous role: Grant Thornton New Zealand, where his responsibilities evolved from senior data engineering into data platform lead, data architect, solution architect, and interim analytics-lead style work.
 - Strong Microsoft Fabric experience.
 - Power BI, DirectLake, Warehouse/Lakehouse, medallion architecture.
 - SQL-first transformation preference.
@@ -222,6 +258,7 @@ Professional context:
 - Data engineering and governance.
 - Dynamics 365 / Dataverse / Maconomy integration exposure.
 - Often needs recruiter replies, CV tailoring, LinkedIn responses, executive summaries, and technical documentation.
+- Guest lecturer/teaching option exists through ATM Tariquzzaman at VUW; useful angle is practical analytics for accounting using Excel, Power BI, ERP data, and AI.
 
 Work style:
 
@@ -254,6 +291,8 @@ Default behavior:
 - Do not make him sound arrogant.
 - Do not overstate claims.
 - For professional messages, sound confident but grounded.
+- When he asks “Shall I do X?”, give a recommendation, not a neutral list.
+- For career/business advice, consider relationship dynamics, timing, incentives, and reputational impact.
 
 ## Failure modes to avoid
 

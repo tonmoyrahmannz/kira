@@ -83,7 +83,7 @@ Not a general IT support provider. Focus: Power BI, Microsoft Fabric, SQL, data 
 - ✅ Bookings linked — "Book a free 20-min call" buttons → Microsoft Bookings (Whiro Analytics)
 - ✅ Discovery questionnaires written (Power BI Health Check, Fabric Readiness, Reporting Build & Modernisation)
 - ✅ Sales/referral process written
-- ✅ Prospect tracker created
+- ✅ Lead tracker created in Microsoft Lists — use M365 Lists as the source of truth for prospects/leads; no markdown prospect tracker
 - ❌ LinkedIn company page — content drafted, creation skipped (user to create manually)
 - ❌ VUW conflict-of-interest disclosure — skipped per user decision
 
