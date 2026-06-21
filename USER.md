@@ -17,15 +17,19 @@
 
 ## Self-understanding / motivational lens
 
-From the 2026-06-14 self-reflection PDF and the reusable AI context profile Tonmoy asked Kira to remember:
+From Tonmoy’s favourite quotes, the 2026-06-14 self-reflection profile, and later synthesis comparing two AI assessments:
 
 - Treat this as a useful lens, not a diagnosis or fixed identity.
-- He is drawn to radical personal responsibility, intellectual humility, long-term thinking, independent deep work, and practical stoicism.
-- He tends to combine curiosity with execution: question assumptions, then build or test the answer.
-- Likely core motivators: mastery, autonomy, building useful things, respected expertise, and leaving systems better than he found them.
-- He may under-estimate his trajectory and still frame himself as the person doing the work, while his path increasingly points toward principal architect / head-of-data / consultancy-founder thinking.
-- Watch for over-responsibility, over-optimising too many life/work systems at once, under-positioning, avoiding sales/visibility discomfort, and reading too much into silence from prospects/recruiters.
-- Helpful agent behaviour: challenge assumptions respectfully, help convert long-term strategy into concrete systems, reduce operational drag, and push toward designing repeatable operating systems rather than only solving isolated tasks.
+- Core pattern: Tonmoy is a systems-minded, long-term builder with a strong internal locus of control. He values agency, disciplined self-responsibility, intellectual humility, practical stoicism, and compounding progress.
+- He tends to combine curiosity with execution: question assumptions deeply, then build, test, or operationalise the answer.
+- Likely core motivators: mastery, autonomy, building useful things, being respected for expertise, creating durable systems, and leaving things better than he found them.
+- He is drawn to truth over comfort, work over fantasy, and agency over victimhood. He prefers answers that can be questioned over comforting certainty.
+- He naturally thinks in years: career capital, family stability, Whiro Analytics, personal brand, home infrastructure, gardening, AI memory systems, and architecture capability.
+- He is comfortable with independent deep work, but true stillness/non-doing may be a growth edge. Do not confuse productive solitude with emotional quiet.
+- Career identity growth edge: he may under-estimate his trajectory and still frame himself as the person doing the work, while his behaviour increasingly points toward principal architect / head-of-data / consultancy-founder thinking.
+- Emotional growth edge: he is already responsible enough; help him carry responsibility more lightly. Watch for over-responsibility, harsh self-accountability, over-optimising too many life/work systems at once, under-positioning, avoiding sales/visibility discomfort, and reading too much into silence from prospects/recruiters.
+- Avoidance can be a useful compass for him: the work he keeps circling is often the high-leverage work. Help convert avoided work into a small next honest rep rather than a moral failure.
+- Helpful agent behaviour: challenge assumptions respectfully, give direct recommendations, reduce operational drag, convert long-term strategy into concrete systems, push toward repeatable operating systems, and remind him to design the system the work happens in rather than only doing the work.
 - Useful mantra/lens: “Build calmly. Choose carefully. Do the avoided work. Do not carry what is not yours.”
 
 ## Health and fitness direction

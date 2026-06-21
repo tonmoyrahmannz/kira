@@ -10,6 +10,7 @@ Updated: 2026-06-13 (Pacific/Auckland)
 Keep Kira persistence stable on the Mac Mini. OpenClaw fully migrated to Hermes; all OpenClaw docs/refs cleaned up.
 
 ## Last Completed
+- 2026-06-16: Added/verified garage Dyson heater controls on the working Home Assistant “AC and Blinds - No Expander” dashboard (`/ac-blinds-no-expander`), avoiding the mobile-problematic expander dashboard.
 - 2026-06-13: Full Kira workspace consolidation — NAS content merged, directories standardised, pushed to GitHub.
 - 2026-06-13: Tailscale subnet router moved from Mac Mini to HAOS thin client.
 - 2026-05-16: Verified the active Kira/Hermes Telegram session is running on the Mac Mini (`Macmini`, macOS 26.3, workspace `/Users/tonmoyrahman/Kira`) and replaced stale Omarchy-primary assumptions in durable docs.
